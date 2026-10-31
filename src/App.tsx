@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { Suspense, lazy, useEffect, useRef } from 'react';
 import { AnimatePresence, MotionConfig, motion } from 'framer-motion';
 import { ProgressProvider, useProgress } from './state/progress';
 import { useRoute } from './lib/router';
@@ -6,14 +6,16 @@ import { Backdrop } from './components/shell/Shell';
 import { RewardLayer } from './components/reward/RewardLayer';
 import { MissionProvider } from './components/focus/Mission';
 import { Home } from './components/home/Home';
-import { PlanPage } from './components/home/PlanPage';
 import { Onboarding } from './components/onboarding/Onboarding';
-import { Settings } from './components/settings/Settings';
-import { Parent } from './components/parent/Parent';
-import { SubjectPage } from './components/subject/SubjectPage';
 import { SUBJECTS } from './content';
 import type { SubjectId } from './content/types';
 import { unlockAudio } from './lib/sound';
+
+// Screens other than Home load on demand, so the first screen appears faster.
+const SubjectPage = lazy(() => import('./components/subject/SubjectPage').then((m) => ({ default: m.SubjectPage })));
+const Settings = lazy(() => import('./components/settings/Settings').then((m) => ({ default: m.Settings })));
+const Parent = lazy(() => import('./components/parent/Parent').then((m) => ({ default: m.Parent })));
+const PlanPage = lazy(() => import('./components/home/PlanPage').then((m) => ({ default: m.PlanPage })));
 
 export default function App() {
   return (
@@ -75,7 +77,7 @@ function Shell() {
         <div className="app">
           <AnimatePresence mode="wait">
             <motion.div key={p.onboarded ? key : 'onboarding'} initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -24 }} transition={{ duration: 0.22 }}>
-              {screen}
+              <Suspense fallback={<p className="center muted" style={{ padding: 40 }}>Loading…</p>}>{screen}</Suspense>
             </motion.div>
           </AnimatePresence>
         </div>

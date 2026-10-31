@@ -7,6 +7,11 @@ type Practise = LazyExoticComponent<ComponentType<{ tool?: string }>>;
 
 export const PRACTISE: Partial<Record<SubjectId, Practise>> = {
   maths: lazy(() => import('../practise/maths/MathsPractise')),
+  science: lazy(() => import('../practise/science/SciencePractise')),
+  english: lazy(() => import('../practise/english/EnglishPractise')),
+  re: lazy(() => import('../practise/re/REPractise')),
+  geography: lazy(() => import('../practise/geography/GeographyPractise')),
+  history: lazy(() => import('../practise/history/HistoryPractise')),
 };
 
 export function genToQuestion(g: GenQ): Question {

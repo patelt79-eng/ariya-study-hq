@@ -1,6 +1,8 @@
 // Small built-in diagrams for Learn cards. Content files refer to them by name.
 import type { ReactNode } from 'react';
 import { AngleDiagram } from '../practise/maths/AngleDiagram';
+import { SCIENCE_DIAGRAMS } from '../practise/science/ScienceDiagrams';
+import { GEO_DIAGRAMS } from '../practise/geography/GeoDiagrams';
 
 const box = { width: '100%', maxWidth: 420, display: 'block', margin: '8px auto', background: 'var(--surface-solid)', borderRadius: 12 } as const;
 
@@ -21,6 +23,8 @@ const DIAGRAMS: Record<string, () => ReactNode> = {
       <text x={160} y={78} textAnchor="middle" className="svg-text" fontSize={12}>Total £40 ÷ 8 parts = £5 each</text>
     </svg>
   ),
+  ...SCIENCE_DIAGRAMS,
+  ...GEO_DIAGRAMS,
   'number-line': () => (
     <svg viewBox="0 0 340 70" style={box} role="img" aria-label="Number line from minus 5 to 5">
       <line x1={10} y1={35} x2={330} y2={35} stroke="var(--text)" strokeWidth={2} />

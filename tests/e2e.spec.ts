@@ -77,6 +77,39 @@ test('a maths quiz can be finished and progress survives a reload', async ({ pag
   await expect(page.getByRole('heading', { name: /Hi Ariya/ })).toBeVisible();
 });
 
+const TOOLS: Record<string, string[]> = {
+  maths: ['generators', 'angles', 'ratio', 'blitz'],
+  science: ['cell', 'particles', 'forces', 'foodweb'],
+  english: ['extract-athlete', 'extract-inventor', 'extract-campaigner', 'pea', 'spag', 'writing'],
+  re: ['pee', 'keywords'],
+  geography: ['exam', 'map', 'water', 'plates', 'pangaea', 'cases'],
+  history: ['timeline', 'showdown', 'claimants', 'silk', 'pee'],
+};
+
+test('every practise tool opens without errors', async ({ page }) => {
+  const errors: string[] = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  await onboard(page);
+  for (const [s, tools] of Object.entries(TOOLS)) {
+    for (const t of tools) {
+      await page.goto(`./#/subject/${s}/practise/${t}`);
+      await expect(page.getByRole('button', { name: '← All tools' })).toBeVisible();
+      await page.waitForTimeout(150);
+      await noSideScroll(page, `${s}/practise/${t}`);
+    }
+  }
+  expect(errors).toEqual([]);
+});
+
+for (const s of SUBJECTS.filter((x) => x !== 'maths')) {
+  test(`a ${s} quiz can be finished`, async ({ page }) => {
+    await onboard(page);
+    await page.goto(`./#/subject/${s}/quiz`);
+    for (let i = 0; i < 10; i++) await answerOne(page);
+    await expect(page.getByRole('button', { name: 'Another round' })).toBeVisible();
+  });
+}
+
 test('theme switching', async ({ page }) => {
   await onboard(page);
   await page.goto('./#/settings');

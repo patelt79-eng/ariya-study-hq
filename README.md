@@ -26,6 +26,10 @@ All the revision content lives in the `src/content/` folder, one file per subjec
 | `geography.ts` | Geography |
 | `history.ts` | History |
 | `timetable.ts` | Exam dates for every class |
+| `english.extras.ts` | English practice extracts and SPaG drills |
+| `geography.extras.ts` | Geography exam questions, model answers and case studies |
+| `history.extras.ts` | Timeline events, Showdown facts, 1066 claimants, Silk Road stops |
+| `re.ts` (top of file) | RE key word definitions (used by flashcards and the Key Word Bank) |
 
 To edit on the GitHub website:
 
