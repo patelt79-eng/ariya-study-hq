@@ -1,0 +1,150 @@
+/* Three skins. Components only use these variables, so a theme only changes the look. */
+
+:root,
+[data-theme='space'] {
+  --bg: #070b1f;
+  --bg-2: #101736;
+  --surface: rgba(22, 30, 66, 0.92);
+  --surface-2: #1b2552;
+  --surface-solid: #161e42;
+  --text: #f2f5ff;
+  --muted: #b5bfe6;
+  --accent: #7cc4ff;
+  --accent-2: #c79bff;
+  --accent-text: #061026;
+  --good: #5ee6a0;
+  --bad: #ff8fa3;
+  --warn: #ffd166;
+  --border: rgba(160, 180, 255, 0.28);
+  --radius: 18px;
+  --font-display: 'Orbitron', system-ui, sans-serif;
+  --display-size: 1;
+  --font-body: 'Atkinson Hyperlegible', system-ui, -apple-system, sans-serif;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  --glow: 0 0 18px rgba(124, 196, 255, 0.45);
+  --confetti: #7cc4ff, #c79bff, #ffd166, #5ee6a0, #ffffff;
+  --rag-r: #ff6b81;
+  --rag-a: #ffc048;
+  --rag-g: #40d98b;
+  color-scheme: dark;
+}
+
+[data-theme='arcade'] {
+  --bg: #12021f;
+  --bg-2: #22063a;
+  --surface: rgba(34, 8, 58, 0.94);
+  --surface-2: #2e0c4d;
+  --surface-solid: #250a40;
+  --text: #fdf7ff;
+  --muted: #dcc4f2;
+  --accent: #19f0ff;
+  --accent-2: #ff3df0;
+  --accent-text: #12021f;
+  --good: #3dff9a;
+  --bad: #ff7aa8;
+  --warn: #ffe74c;
+  --border: rgba(255, 61, 240, 0.45);
+  --radius: 6px;
+  --font-display: 'Press Start 2P', monospace;
+  --display-size: 0.62;
+  --font-body: 'Atkinson Hyperlegible', system-ui, -apple-system, sans-serif;
+  --shadow: 0 0 0 2px rgba(255, 61, 240, 0.3), 0 10px 26px rgba(0, 0, 0, 0.5);
+  --glow: 0 0 14px rgba(25, 240, 255, 0.65), 0 0 28px rgba(255, 61, 240, 0.35);
+  --confetti: #19f0ff, #ff3df0, #ffe74c, #3dff9a;
+  --rag-r: #ff4f7b;
+  --rag-a: #ffcf3d;
+  --rag-g: #3dff9a;
+  color-scheme: dark;
+}
+
+[data-theme='map'] {
+  --bg: #efdcb4;
+  --bg-2: #e3c993;
+  --surface: rgba(252, 244, 226, 0.96);
+  --surface-2: #f6e7c6;
+  --surface-solid: #fbf2dd;
+  --text: #2b1a0e;
+  --muted: #5b4330;
+  --accent: #9a3412;
+  --accent-2: #0f5e5a;
+  --accent-text: #fff8ec;
+  --good: #1f7a3a;
+  --bad: #b3261e;
+  --warn: #8a5a00;
+  --border: rgba(91, 58, 26, 0.35);
+  --radius: 14px;
+  --font-display: 'Pirata One', Georgia, serif;
+  --display-size: 1.15;
+  --font-body: 'Atkinson Hyperlegible', system-ui, -apple-system, sans-serif;
+  --shadow: 0 6px 18px rgba(80, 50, 20, 0.22);
+  --glow: 0 0 0 3px rgba(154, 52, 18, 0.25);
+  --confetti: #d4a017, #9a3412, #0f5e5a, #f6e7c6;
+  --rag-r: #c0392b;
+  --rag-a: #d68910;
+  --rag-g: #1e8449;
+  color-scheme: light;
+}
+
+/* ---------- animated backdrops ---------- */
+.backdrop { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; background: var(--bg); }
+
+[data-theme='space'] .backdrop {
+  background: radial-gradient(ellipse at 20% 10%, #1b2a6b 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 80%, #3a1d6b 0%, transparent 50%), var(--bg);
+}
+.stars { position: absolute; inset: -50% -10%; background-repeat: repeat; animation: drift linear infinite; }
+.stars.s1 {
+  background-image: radial-gradient(1px 1px at 20px 30px, #fff, transparent), radial-gradient(1px 1px at 90px 120px, #cfe0ff, transparent),
+    radial-gradient(1px 1px at 160px 60px, #fff, transparent), radial-gradient(1px 1px at 230px 180px, #fff, transparent);
+  background-size: 260px 220px; animation-duration: 160s; opacity: 0.7;
+}
+.stars.s2 {
+  background-image: radial-gradient(1.5px 1.5px at 50px 80px, #fff, transparent), radial-gradient(2px 2px at 200px 40px, #e7d8ff, transparent),
+    radial-gradient(1.5px 1.5px at 320px 200px, #fff, transparent);
+  background-size: 380px 300px; animation-duration: 90s; opacity: 0.85;
+}
+.stars.s3 {
+  background-image: radial-gradient(2.5px 2.5px at 120px 150px, #fff, transparent), radial-gradient(2px 2px at 420px 60px, #bfe1ff, transparent);
+  background-size: 520px 420px; animation-duration: 55s;
+}
+@keyframes drift { from { transform: translateY(0); } to { transform: translateY(25%); } }
+
+[data-theme='arcade'] .backdrop {
+  background: linear-gradient(180deg, #12021f 0%, #2a0548 55%, #4a0a5e 100%);
+}
+.grid-floor {
+  position: absolute; left: -50%; right: -50%; bottom: -10%; height: 55%;
+  background-image: linear-gradient(rgba(255, 61, 240, 0.55) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(25, 240, 255, 0.45) 2px, transparent 2px);
+  background-size: 60px 60px; transform: perspective(300px) rotateX(60deg); transform-origin: bottom;
+  animation: gridmove 3s linear infinite; opacity: 0.5;
+}
+@keyframes gridmove { from { background-position: 0 0; } to { background-position: 0 60px; } }
+.scanlines {
+  position: fixed; inset: 0; z-index: 1; pointer-events: none;
+  background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.16) 0 1px, transparent 1px 3px);
+}
+
+[data-theme='map'] .backdrop {
+  background: radial-gradient(ellipse at 50% 40%, #f6e7c6 0%, #e9d2a2 60%, #d6b57a 100%);
+}
+.paper-grain {
+  position: absolute; inset: 0; opacity: 0.35;
+  background-image: repeating-radial-gradient(circle at 30% 30%, rgba(120, 80, 30, 0.05) 0 2px, transparent 2px 6px);
+}
+.compass {
+  position: absolute; right: -60px; bottom: -60px; width: 260px; height: 260px; opacity: 0.12;
+  border: 6px double #5b3a1a; border-radius: 50%; animation: spin 120s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Calm screens (quiz, reading) and Calm mode freeze the backdrop. */
+[data-calm-screen='true'] .stars, [data-calm-screen='true'] .grid-floor, [data-calm-screen='true'] .compass,
+[data-calm='true'] .stars, [data-calm='true'] .grid-floor, [data-calm='true'] .compass { animation-play-state: paused; }
+[data-calm-screen='true'] .scanlines { opacity: 0.4; }
+[data-calm='true'] .scanlines { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .stars, .grid-floor, .compass { animation: none !important; }
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+}

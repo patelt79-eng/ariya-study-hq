@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <radialGradient id="bg" cx="30%" cy="25%" r="90%"><stop offset="0" stop-color="#2a3b8f"/><stop offset="1" stop-color="#070b1f"/></radialGradient>
+    <radialGradient id="pl" cx="35%" cy="30%" r="70%"><stop offset="0" stop-color="#fff6c2"/><stop offset=".45" stop-color="#ffb347"/><stop offset="1" stop-color="#ff7b00"/></radialGradient>
+  </defs>
+  <rect width="512" height="512" rx="0" fill="url(#bg)"/>
+  <g fill="#fff" opacity=".85"><circle cx="80" cy="90" r="4"/><circle cx="420" cy="70" r="3"/><circle cx="450" cy="300" r="4"/><circle cx="70" cy="380" r="3"/><circle cx="380" cy="440" r="3"/><circle cx="160" cy="460" r="2.5"/></g>
+  <ellipse cx="256" cy="270" rx="200" ry="70" fill="none" stroke="#7cc4ff" stroke-width="14" transform="rotate(-18 256 270)"/>
+  <circle cx="256" cy="260" r="120" fill="url(#pl)"/>
+  <path d="M 70 300 A 200 70 -18 0 0 450 210" fill="none" stroke="#7cc4ff" stroke-width="14" transform="rotate(0)"/>
+  <text x="256" y="292" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="104" fill="#3b1d00">HQ</text>
+  <circle cx="420" cy="150" r="30" fill="#c79bff"/>
+</svg>
