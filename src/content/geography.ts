@@ -391,13 +391,14 @@ export const geography: SubjectContent = {
   ],
 
   links: [
-    { label: 'Earthquakes (video)', url: 'https://www.youtube.com/watch?v=e7ho6z32yyo', note: 'National Geographic: Earthquakes 101' },
-    { label: 'Tsunamis (video)', url: 'https://www.youtube.com/watch?v=_oPb_9gOdn4', note: 'National Geographic: Tsunamis 101 (the booklet link was missing an underscore; this is corrected)' },
-    { label: 'Hurricanes (video)', url: 'https://www.youtube.com/watch?v=LlXVikDkyTg', note: 'National Geographic: Hurricanes 101 (one letter in the booklet link was corrected)' },
-    { label: 'Tornadoes (video)', url: 'https://www.youtube.com/watch?v=aacHWoB7cmY', note: 'National Geographic: Tornadoes 101' },
-    { label: 'Floods (video)', url: 'https://www.youtube.com/watch?v=4PXj7bOD7IY', note: 'National Geographic: Floods 101' },
-    { label: 'Volcanic eruptions (video)', url: 'https://www.youtube.com/watch?v=VNGUdObDoLk', note: 'National Geographic: Volcanoes 101' },
-    { label: 'Wildfires (video)', url: 'https://www.youtube.com/watch?v=5hghT1W33cY', note: 'National Geographic: Wildfires 101' },
+    // The booklet's National Geographic "101" videos are no longer playable, so these are replacements.
+    { label: 'Earthquakes (video)', url: 'https://www.youtube.com/watch?v=AArne-wh_Uc', note: 'SciShow Kids: What Causes Earthquakes?' },
+    { label: 'Tsunamis (video)', url: 'https://www.youtube.com/watch?v=Wx9vPv-T51I', note: 'TED-Ed: How tsunamis work' },
+    { label: 'Hurricanes (video)', url: 'https://www.youtube.com/watch?v=xKubdY2mHXc', note: 'SciShow Kids: What’s a Hurricane?' },
+    { label: 'Tornadoes (video)', url: 'https://www.youtube.com/watch?v=lmWh9jV_1ac', note: 'TED-Ed: How do tornadoes form?' },
+    { label: 'Floods (video)', url: 'https://www.youtube.com/watch?v=Qe350nm_odA', note: 'SciShow Kids: Why Do Floods Happen?' },
+    { label: 'Volcanic eruptions (video)', url: 'https://www.youtube.com/watch?v=LQwZwKS9RPs', note: 'TED-Ed: Volcanic eruption explained' },
+    { label: 'Wildfires (video)', url: 'https://www.youtube.com/watch?v=F8OrmGAIqI4', note: 'SciShow: The Science of Wildfires' },
     { label: 'Educake', url: 'https://www.educake.co.uk/', note: 'Complete Educake quizzes to test knowledge.' },
     { label: 'BBC Bitesize KS3 Geography', url: 'https://www.bbc.co.uk/bitesize/subjects/zrw76sg' },
   ],

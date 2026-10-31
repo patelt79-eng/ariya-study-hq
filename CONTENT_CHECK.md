@@ -52,10 +52,15 @@ The booklet mostly lists topic **names**. Everything below was written from the 
 - The four **PEE model answers** are my own.
 
 ## Geography (`geography.ts`)
-- **Video links:** five of the seven booklet links worked as written. Two were transcribed wrongly from the photo and are **corrected** in the app:
-  - Tsunamis: booklet `_oPb9gOdn4` (too short, missing an underscore) → **`_oPb_9gOdn4`** (National Geographic, *Tsunamis 101*).
-  - Hurricanes: booklet `LlXViKDkyTg` (not found) → **`LlXVikDkyTg`** (National Geographic, *Hurricanes 101*; the "I" should be a lowercase "i").
-  - All seven are National Geographic "101" videos and open in a new tab.
+- **Video links:** the booklet's seven National Geographic "101" videos (earthquakes, tsunamis, hurricanes, tornadoes, floods, volcanoes, wildfires) are **no longer playable on YouTube** ("Video unavailable", checked 31 Oct 2026). Two of the IDs had also been copied wrongly from the photo. The app links to these replacements instead, all checked as playable:
+  - Earthquakes: SciShow Kids, *What Causes Earthquakes?* (AArne-wh_Uc)
+  - Tsunamis: TED-Ed, *How tsunamis work* (Wx9vPv-T51I)
+  - Hurricanes: SciShow Kids, *What's a Hurricane?* (xKubdY2mHXc)
+  - Tornadoes: TED-Ed, *How do tornadoes form?* (lmWh9jV_1ac)
+  - Floods: SciShow Kids, *Why Do Floods Happen?* (Qe350nm_odA)
+  - Volcanic eruptions: TED-Ed, *Volcanic eruption explained* (LQwZwKS9RPs)
+  - Wildfires: SciShow, *The Science of Wildfires* (F8OrmGAIqI4)
+  - If the teacher's links start working again (or she has new ones), swap them back in `geography.ts`.
 - **Biome figures**: rainforest about 27 °C and over 2,000 mm of rain a year; hot deserts under 250 mm a year; tropical storms need sea temperatures of at least 26.5 °C. These are typical textbook values.
 - **Biome example locations** on the map are approximate circles, not exact boundaries.
 - **The world map is schematic** (simplified coastlines), and so is the Pangaea animation.
