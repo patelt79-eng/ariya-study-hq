@@ -30,7 +30,7 @@ export const history: SubjectContent = {
   ],
 
   learn: [
-    { topicId: T.silk, title: 'What was the Silk Road?',
+    { topicId: T.silk, title: 'What was the Silk Road?', diagram: 'silk-road',
       points: [
         'A network of trade routes linking China with Central Asia, the Middle East and Europe, about 6,400 km (4,000 miles) long.',
         'It grew from around 130 BC, when China’s Han dynasty opened trade to the west, and was used for about 1,500 years.',
@@ -39,7 +39,7 @@ export const history: SubjectContent = {
         'The name "Silk Road" was only invented in 1877, by a German geographer.',
       ],
       tip: 'Not one road: a web of routes.' },
-    { topicId: T.silk, title: 'Why was it important?',
+    { topicId: T.silk, title: 'Why was it important?', diagram: 'silk-trade',
       points: [
         'Goods: silk, paper, porcelain and tea came west; spices from India; glass, silver, gold, wool and horses went east.',
         'Religions: Buddhism spread from India to China; Islam and Christianity spread east along the routes.',
@@ -48,7 +48,7 @@ export const history: SubjectContent = {
         'It made cities like Samarkand and Baghdad rich and multicultural.',
       ],
       tip: 'Goods, gods, ideas and germs.' },
-    { topicId: T.baghdad, title: 'The Round City of Baghdad',
+    { topicId: T.baghdad, title: 'The Round City of Baghdad', diagram: 'round-city',
       points: [
         'Founded in 762 by Caliph al-Mansur of the Abbasid dynasty, on the River Tigris (in modern Iraq).',
         'Built as a "Round City" with circular walls, four gates, and the caliph’s palace and Great Mosque at the centre. Its official name meant "City of Peace".',
@@ -57,7 +57,7 @@ export const history: SubjectContent = {
         'In 1258 the Mongols destroyed the city.',
       ],
       tip: '762: a round city on a river.' },
-    { topicId: T.baghdad, title: 'Baghdad: education and learning',
+    { topicId: T.baghdad, title: 'Baghdad: education and learning', diagram: 'house-of-wisdom',
       points: [
         'The House of Wisdom was a great library and centre of learning, at its peak under Caliph al-Ma’mun (813–833).',
         'Scholars translated Greek, Persian and Indian books into Arabic, saving ancient knowledge.',
@@ -66,7 +66,7 @@ export const history: SubjectContent = {
         'Children learned to read and write at mosque schools; there were many bookshops and libraries.',
       ],
       tip: 'House of Wisdom = translation + invention.' },
-    { topicId: T.baghdad, title: 'Baghdad: women, society and law',
+    { topicId: T.baghdad, title: 'Baghdad: women, society and law', diagram: 'baghdad-society',
       points: [
         'Society: the caliph at the top, then officials and viziers, wealthy merchants and scholars, craftspeople, farmers and labourers, and enslaved people at the bottom.',
         'Law: Sharia law, based on the Qur’an and the Hadith (sayings of the Prophet Muhammad). Judges called qadis ran the courts.',
@@ -74,7 +74,7 @@ export const history: SubjectContent = {
         'Some women were educated and influential, e.g. Zubaidah, wife of Caliph Harun al-Rashid, who paid for wells and a road for pilgrims to Mecca.',
       ],
       tip: 'Rules came from the Qur’an; judges were qadis.' },
-    { topicId: T.saxon, title: 'Anglo-Saxon society',
+    { topicId: T.saxon, title: 'Anglo-Saxon society', diagram: 'saxon-hierarchy',
       points: [
         'England was split into kingdoms, the main seven being Northumbria, Mercia, East Anglia, Essex, Wessex, Sussex and Kent.',
         'Hierarchy: the king; thegns (nobles who fought for the king and held land); ceorls (free peasant farmers); and slaves (thralls).',
@@ -83,7 +83,7 @@ export const history: SubjectContent = {
         'Alfred the Great (king of Wessex 871–899) defended against the Vikings and built fortified towns called burhs.',
       ],
       tip: 'King → thegns → ceorls → slaves.' },
-    { topicId: T.saxon, title: 'Anglo-Saxon law',
+    { topicId: T.saxon, title: 'Anglo-Saxon law', diagram: 'saxon-law',
       points: [
         'Wergild: "man-price". If you killed or injured someone, you paid compensation to their family. The amount depended on the victim’s status.',
         'Trial by ordeal was used when guilt wasn’t clear: e.g. carrying a red-hot iron (if the burn healed cleanly in 3 days, you were innocent) or being thrown into water (if you sank, you were innocent).',
@@ -92,7 +92,7 @@ export const history: SubjectContent = {
         'Kings wrote law codes, e.g. Æthelberht of Kent (around 600) and Alfred the Great.',
       ],
       tip: 'Wergild = pay the family, not the king.' },
-    { topicId: T.saxon, title: 'Anglo-Saxon education and women',
+    { topicId: T.saxon, title: 'Anglo-Saxon education and women', diagram: 'monastery',
       points: [
         'Most people could not read or write. Education happened mainly in monasteries.',
         'Monks copied and decorated books by hand, e.g. the Lindisfarne Gospels (around 700).',
@@ -101,7 +101,7 @@ export const history: SubjectContent = {
         'Women could own and inherit land, make wills and had a wergild. Some were powerful: Abbess Hild of Whitby ran a great monastery, and Æthelflæd, "Lady of the Mercians", led armies against the Vikings.',
       ],
       tip: 'Learning lived in the monasteries.' },
-    { topicId: T.ase, title: 'Angles, Saxons and Jutes',
+    { topicId: T.ase, title: 'Angles, Saxons and Jutes', diagram: 'migration',
       points: [
         'After the Romans left (around 410), people from northern Europe crossed the North Sea and settled.',
         'Angles: from Angeln, in modern northern Germany/southern Denmark. Saxons: from northern Germany. Jutes: from Jutland (Denmark). Some also came from Frisia (the Netherlands).',
@@ -110,7 +110,7 @@ export const history: SubjectContent = {
         'They created kingdoms, and later (from 597) converted to Christianity.',
       ],
       tip: 'Angle-land → England.' },
-    { topicId: T.romans, title: 'The Romans in Britain',
+    { topicId: T.romans, title: 'The Romans in Britain', diagram: 'roman-britain',
       points: [
         'Julius Caesar raided Britain in 55 and 54 BC but didn’t stay.',
         'The real invasion was in AD 43, ordered by Emperor Claudius.',
@@ -119,7 +119,7 @@ export const history: SubjectContent = {
         'Hadrian’s Wall was begun in AD 122. The Romans left around AD 410.',
       ],
       tip: 'AD 43 in, AD 410 out.' },
-    { topicId: T.y1066, title: '1066: the claimants',
+    { topicId: T.y1066, title: '1066: the claimants', diagram: '1066-claimants',
       points: [
         'Edward the Confessor died on 5 January 1066 with no children, so who should be king?',
         'Harold Godwinson: the most powerful English noble (Earl of Wessex). Said Edward named him on his deathbed. Crowned the next day.',
@@ -128,7 +128,7 @@ export const history: SubjectContent = {
         'Bonus: Edgar Ætheling was Edward’s closest blood relative, but only a teenager.',
       ],
       tip: 'Harold (England), Harald (Norway), William (Normandy).' },
-    { topicId: T.y1066, title: '1066: the battles',
+    { topicId: T.y1066, title: '1066: the battles', diagram: '1066-battles',
       points: [
         '20 September: Hardrada and Tostig beat the northern earls at the Battle of Gate Fulford, near York.',
         '25 September: Battle of Stamford Bridge. Harold marched his army north very fast, surprised the Vikings and won. Hardrada and Tostig were killed.',
@@ -137,7 +137,7 @@ export const history: SubjectContent = {
         '25 December (Christmas Day) 1066: William was crowned king in Westminster Abbey.',
       ],
       tip: '25 Sept Stamford Bridge → 14 Oct Hastings → 25 Dec crowned.' },
-    { topicId: T.timeline, title: 'Key dates',
+    { topicId: T.timeline, title: 'Key dates', diagram: 'key-dates',
       points: [
         '55–54 BC: Julius Caesar’s raids. AD 43: Roman invasion under Claudius. c. 410: Romans leave.',
         'c. 450: Anglo-Saxons settling. 597: St Augustine brings Christianity to Kent.',
@@ -146,7 +146,7 @@ export const history: SubjectContent = {
         '1258: Mongols destroy Baghdad. Periods: Roman Britain (43–410), Anglo-Saxon England (c. 410–1066), Abbasid Caliphate (750–1258).',
       ],
       tip: 'BC counts down to 0; AD counts up.' },
-    { topicId: T.compare, title: 'Artemis challenge: who was more advanced?',
+    { topicId: T.compare, title: 'Artemis challenge: who was more advanced?', diagram: 'artemis-compare',
       points: [
         'Education: Baghdad had the House of Wisdom, libraries, bookshops and mosque schools; in Saxon England most learning was in monasteries and few could read.',
         'Science and medicine: Baghdad had hospitals, algebra and translated Greek science; Saxon medicine used herbs and charms.',
@@ -155,7 +155,7 @@ export const history: SubjectContent = {
         'Balanced judgement: most historians would say Baghdad was more advanced in learning, medicine and city life, but Saxon England had strong local law and beautiful art (e.g. the Lindisfarne Gospels, Sutton Hoo).',
       ],
       tip: 'Make a judgement, then back it with evidence from each category.' },
-    { topicId: T.compare, title: 'Women: Baghdad vs Saxon England',
+    { topicId: T.compare, title: 'Women: Baghdad vs Saxon England', diagram: 'women-compare',
       points: [
         'Similarities: in both, women could own property and inherit, and men held most power.',
         'Baghdad: rights came from Islamic law; some women were educated, wealthy and influential (e.g. Zubaidah); wealthy women often lived more separately from men in public.',

@@ -33,6 +33,8 @@ function cardsFor(subject: SubjectContent, topic: Topic): LearnCard[] {
       title: fcs.length > 5 ? `Key words (${i / 5 + 1} of ${Math.ceil(fcs.length / 5)})` : 'Key words',
       points: fcs.slice(i, i + 5).map((c) => `${c.front}: ${c.back}`),
       tip: 'Read each one, then cover it and say it out loud.',
+      // The same key words as picture tiles (see pictures/re.tsx).
+      diagram: `keywords-${topic.id}-${i / 5}`,
     });
   }
   return chunks;

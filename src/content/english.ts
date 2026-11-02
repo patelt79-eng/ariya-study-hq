@@ -29,7 +29,7 @@ export const english: SubjectContent = {
   ],
 
   learn: [
-    { topicId: T.ao1, title: 'Comprehension (AO1)',
+    { topicId: T.ao1, title: 'Comprehension (AO1)', diagram: 'comprehension',
       points: [
         'AO1 means finding and retrieving information from the text.',
         'Read the question, underline the key word, then scan the extract for it.',
@@ -38,7 +38,7 @@ export const english: SubjectContent = {
         'Check the marks: 1 mark usually means one point.',
       ],
       tip: 'Question key word → find it → copy the evidence.' },
-    { topicId: T.terms, title: 'The 7 key terms (1)',
+    { topicId: T.terms, title: 'The 7 key terms (1)', diagram: 'key-terms-1',
       points: [
         'Metaphor: comparing two things by saying one IS the other (e.g. "my heart was frozen").',
         'Short sentence: contains a subject and a main verb (e.g. "I won.").',
@@ -46,7 +46,7 @@ export const english: SubjectContent = {
         'Triadic listing: listing three things or words for impact (e.g. "brave, bold and brilliant").',
       ],
       tip: 'Triadic = tri = three.' },
-    { topicId: T.terms, title: 'The 7 key terms (2)',
+    { topicId: T.terms, title: 'The 7 key terms (2)', diagram: 'key-terms-2',
       points: [
         'Anecdote: a short personal story.',
         'Statistic: facts using numbers, dates, percentages and so on.',
@@ -54,7 +54,7 @@ export const english: SubjectContent = {
         'Spotting isn’t enough: always explain WHY the writer used it.',
       ],
       tip: 'Anecdotes make the writer seem real; statistics make them seem reliable.' },
-    { topicId: T.bonus, title: 'Bonus persuasive terms',
+    { topicId: T.bonus, title: 'Bonus persuasive terms', diagram: 'persuasive',
       points: [
         'Simile: comparing using "like" or "as" (e.g. "as brave as a lion").',
         'Direct address: speaking to the reader as "you".',
@@ -64,7 +64,7 @@ export const english: SubjectContent = {
         'Imperative: a command verb at the start of a sentence (e.g. "Start today.").',
       ],
       tip: 'Motivational writing loves "you", questions and commands.' },
-    { topicId: T.pea, title: 'PEA paragraphs',
+    { topicId: T.pea, title: 'PEA paragraphs', diagram: 'pea',
       points: [
         'Point: an opening point linked to the question.',
         'Evidence: a quotation from the extract that supports it.',
@@ -74,7 +74,7 @@ export const english: SubjectContent = {
         'Write 3–4 PEA paragraphs, moving through the extract (start, middle, end).',
       ],
       tip: 'Short quotes are best: pick 2–6 powerful words.' },
-    { topicId: T.wordclass, title: 'Word classes',
+    { topicId: T.wordclass, title: 'Word classes', diagram: 'word-classes',
       points: [
         'Noun: a person, place, thing or idea (champion, school, courage).',
         'Verb: a doing or being word (run, believe, is).',
@@ -84,7 +84,7 @@ export const english: SubjectContent = {
         'In analysis, name the word class: "The verb ‘fought’ suggests…".',
       ],
       tip: 'Zoom in on one powerful word and name its word class.' },
-    { topicId: T.spag, title: 'Punctuation toolkit',
+    { topicId: T.spag, title: 'Punctuation toolkit', diagram: 'punctuation',
       points: [
         'Full stop (.) ends a sentence. Question mark (?) ends a question. Exclamation mark (!) shows strong feeling.',
         'Comma (,) separates items in a list, and clauses.',
@@ -94,7 +94,7 @@ export const english: SubjectContent = {
         'Colon (:) introduces a list or explanation. Semicolon (;) joins two closely linked complete sentences.',
       ],
       tip: 'Never use a comma to join two full sentences: that’s a comma splice.' },
-    { topicId: T.spag, title: 'Spelling traps',
+    { topicId: T.spag, title: 'Spelling traps', diagram: 'spelling-traps',
       points: [
         'their (belonging to them) / there (a place) / they’re (they are).',
         'your (belonging to you) / you’re (you are).',
@@ -103,7 +103,7 @@ export const english: SubjectContent = {
         'Capital letters: start of sentences, names, places, days, months, and "I".',
       ],
       tip: 'Expand it: if "it is" fits, use it’s.' },
-    { topicId: T.writing, title: 'Writing an article opening',
+    { topicId: T.writing, title: 'Writing an article opening', diagram: 'article',
       points: [
         'Task: write the opening to an article about gender equality using accurate SPaG.',
         'Start with a headline, then a strong opening line (a statistic, question or anecdote).',

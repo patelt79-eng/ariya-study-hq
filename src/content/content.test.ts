@@ -51,8 +51,17 @@ describe('maths generators', () => {
 });
 
 describe('diagram descriptions for Listen mode', () => {
-  it('every diagram used on a learn card has a spoken description', async () => {
+  it('every learn card has a picture with a spoken description', async () => {
     const { diagramText } = await import('../components/subject/Diagrams');
-    for (const s of SUBJECT_LIST) for (const c of s.learn) if (c.diagram) expect(diagramText(c.diagram), c.diagram).not.toBe('');
+    for (const s of SUBJECT_LIST) for (const c of s.learn) {
+      expect(c.diagram, `${s.id}: ${c.title}`).toBeTruthy();
+      expect(diagramText(c.diagram), c.diagram).not.toBe('');
+    }
+    // Generated RE "Key words" cards (5 words per card).
+    const re = SUBJECT_LIST.find((x) => x.id === 're')!;
+    for (const topic of ['r-terms-creation', 'r-terms-prophecy']) {
+      const n = Math.ceil(re.flashcards.filter((c) => c.topicId === topic).length / 5);
+      for (let i = 0; i < n; i++) expect(diagramText(`keywords-${topic}-${i}`), `${topic} ${i}`).not.toBe('');
+    }
   });
 });

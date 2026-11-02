@@ -64,7 +64,7 @@ export const re: SubjectContent = {
   ],
 
   learn: [
-    { topicId: T.genesis, title: 'Genesis 1: seven days',
+    { topicId: T.genesis, title: 'Genesis 1: seven days', diagram: 'seven-days',
       points: [
         'Genesis means "beginning". It is the first book of the Bible.',
         'Day 1: light (day and night). Day 2: the sky. Day 3: land, seas and plants.',
@@ -74,7 +74,7 @@ export const re: SubjectContent = {
         '"God created man in his own image… male and female he created them" (Genesis 1:27).',
       ],
       tip: 'Order and goodness: God creates with a plan, and creation is good.' },
-    { topicId: T.genesis, title: 'Genesis 2: Adam and Eve in the Garden',
+    { topicId: T.genesis, title: 'Genesis 2: Adam and Eve in the Garden', diagram: 'garden-eden',
       points: [
         'God forms Adam from the dust of the ground and breathes life into him.',
         'God places Adam in the Garden of Eden "to till it and keep it" (Genesis 2:15).',
@@ -83,7 +83,7 @@ export const re: SubjectContent = {
         'Genesis 2 focuses on humans and their relationship with God, each other and nature.',
       ],
       tip: 'Genesis 1 = the big picture. Genesis 2 = the close-up on humans.' },
-    { topicId: T.literal, title: 'Literal sense and literary form',
+    { topicId: T.literal, title: 'Literal sense and literary form', diagram: 'literary-forms',
       points: [
         'Literal sense: the meaning the human author intended to communicate.',
         'Literary form: the type of writing (poetry, history, story, law, letter, prophecy…).',
@@ -92,7 +92,7 @@ export const re: SubjectContent = {
         'Dei Verbum says readers should pay attention to the literary forms the authors used.',
       ],
       tip: 'Ask: what TYPE of writing is this, and what did the author MEAN?' },
-    { topicId: T.science, title: 'Science and creation',
+    { topicId: T.science, title: 'Science and creation', diagram: 'big-bang',
       points: [
         'The Big Bang theory: the universe began about 13.8 billion years ago from an extremely hot, dense point and has been expanding ever since.',
         'The theory was first proposed by Georges Lemaître, a Belgian Catholic priest and scientist, in the 1920s.',
@@ -100,7 +100,7 @@ export const re: SubjectContent = {
         'The Catholic Church teaches that science and faith do not have to contradict each other: science explains HOW, faith explains WHO and WHY.',
       ],
       tip: 'Science: how? Faith: why? Both seek the truth.' },
-    { topicId: T.science, title: 'Creationism vs scientism',
+    { topicId: T.science, title: 'Creationism vs scientism', diagram: 'faith-reason',
       points: [
         'Creationism: believing Genesis is literally, scientifically true (e.g. the world made in six 24-hour days a few thousand years ago).',
         'Scientism: believing science is the ONLY way to know truth, so God cannot be real because science can’t prove him.',
@@ -108,7 +108,7 @@ export const re: SubjectContent = {
         'Pope Francis (2014): the Big Bang does not contradict the idea of a divine creator; it requires it.',
       ],
       tip: 'Catholics: faith AND reason, not faith OR reason.' },
-    { topicId: T.steward, title: 'Stewardship',
+    { topicId: T.steward, title: 'Stewardship', diagram: 'stewardship',
       points: [
         'Stewardship: looking after God’s creation responsibly, on his behalf.',
         'Genesis 2:15: God put Adam in the garden "to till it and keep it".',
@@ -116,7 +116,7 @@ export const re: SubjectContent = {
         'Examples today: recycling, saving energy, protecting wildlife, buying fair trade, campaigning on climate change.',
       ],
       tip: 'Steward = caretaker, not owner.' },
-    { topicId: T.steward, title: 'Laudato Si’ (2015)',
+    { topicId: T.steward, title: 'Laudato Si’ (2015)', diagram: 'laudato-si',
       points: [
         'An encyclical (teaching letter) by Pope Francis, published in 2015.',
         'Subtitle: "On Care for Our Common Home".',
@@ -125,7 +125,7 @@ export const re: SubjectContent = {
         'Key idea: "the cry of the earth and the cry of the poor" are linked.',
       ],
       tip: 'Common home = the Earth, shared by everyone.' },
-    { topicId: T.prayer, title: 'Prayer and creation today',
+    { topicId: T.prayer, title: 'Prayer and creation today', diagram: 'prayer',
       points: [
         'Prayer is raising the mind and heart to God.',
         'Catholics thank and praise God for creation (e.g. Psalm 8, Psalm 104, grace before meals).',
@@ -133,7 +133,7 @@ export const re: SubjectContent = {
         'How creation teachings affect Catholics today: they value every human life (made in God’s image), care for the environment, rest on Sunday, and thank God in prayer.',
       ],
       tip: 'Belief → action: what Catholics believe shapes how they live.' },
-    { topicId: T.bible, title: 'The Bible',
+    { topicId: T.bible, title: 'The Bible', diagram: 'bible-library',
       points: [
         'The Bible is a library of books written by many authors over many centuries, inspired by God.',
         'The Catholic Bible has 73 books: 46 in the Old Testament and 27 in the New Testament.',
@@ -142,7 +142,7 @@ export const re: SubjectContent = {
         'The New Testament contains the four Gospels, Acts, the Letters and the Book of Revelation.',
       ],
       tip: '46 + 27 = 73.' },
-    { topicId: T.authority, title: 'Scripture, Tradition and Magisterium',
+    { topicId: T.authority, title: 'Scripture, Tradition and Magisterium', diagram: 'three-legged-stool',
       points: [
         'Catholics believe God reveals himself through Scripture AND Tradition.',
         'Scripture: the Bible. Tradition: teaching handed down from the apostles.',
@@ -151,7 +151,7 @@ export const re: SubjectContent = {
         'Dei Verbum describes Scripture and Tradition as flowing from the same "divine wellspring".',
       ],
       tip: 'Three-legged stool: Scripture, Tradition, Magisterium.' },
-    { topicId: T.languages, title: 'Languages of the Bible',
+    { topicId: T.languages, title: 'Languages of the Bible', diagram: 'bible-languages',
       points: [
         'Hebrew: most of the Old Testament.',
         'Aramaic: the everyday language Jesus spoke; a few Old Testament passages (in Daniel and Ezra).',
@@ -159,7 +159,7 @@ export const re: SubjectContent = {
         'The Bible was later translated into Latin (St Jerome’s Vulgate) and now into thousands of languages.',
       ],
       tip: 'Old = Hebrew, New = Greek, Jesus spoke Aramaic.' },
-    { topicId: T.liturgy, title: 'Scripture at Mass: the Liturgy of the Word',
+    { topicId: T.liturgy, title: 'Scripture at Mass: the Liturgy of the Word', diagram: 'liturgy-word',
       points: [
         'Mass has two main parts: the Liturgy of the Word and the Liturgy of the Eucharist.',
         'Liturgy of the Word: First Reading (usually Old Testament), Responsorial Psalm, Second Reading (on Sundays, usually a New Testament letter), Gospel, Homily.',
@@ -167,7 +167,7 @@ export const re: SubjectContent = {
         'Catholics also use scripture in personal prayer, e.g. Lectio Divina (prayerful reading).',
       ],
       tip: 'Reading, Psalm, Reading, Gospel, Homily.' },
-    { topicId: T.writing, title: 'PEE: Point, Evidence, Explain',
+    { topicId: T.writing, title: 'PEE: Point, Evidence, Explain', diagram: 'pee-re',
       points: [
         'Point: make one clear point that answers the question.',
         'Evidence: support it with a Bible quote, Church teaching (e.g. Laudato Si’) or a fact.',

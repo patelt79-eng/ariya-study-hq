@@ -59,7 +59,7 @@ export const science: SubjectContent = {
         'Root cells underground have no chloroplasts, because there is no light there.',
       ],
       tip: 'Plants get the extra 3 Cs and a V: Cell wall, Chloroplasts, (permanent) Vacuole.' },
-    { topicId: T.special, title: 'Specialised cells',
+    { topicId: T.special, title: 'Specialised cells', diagram: 'specialised-cells',
       points: [
         'Specialised cells have a special shape or parts to do one job well.',
         'Red blood cell: no nucleus and a dented (biconcave) shape, so there is more room and surface to carry oxygen.',
@@ -78,7 +78,7 @@ export const science: SubjectContent = {
         'Stain (e.g. iodine for onion cells) makes parts easier to see.',
       ],
       tip: 'Magnification: multiply the two lenses.' },
-    { topicId: T.uni, title: 'Unicellular organisms',
+    { topicId: T.uni, title: 'Unicellular organisms', diagram: 'unicellular',
       points: [
         'Unicellular means made of just one cell. Multicellular means many cells.',
         'Amoeba: changes shape and moves using "false feet" (pseudopods). It surrounds and engulfs food.',
@@ -95,7 +95,7 @@ export const science: SubjectContent = {
         'Predators hunt and eat other animals. Prey are the animals that get eaten.',
       ],
       tip: 'Arrow = "is eaten by" = energy goes this way.' },
-    { topicId: T.inter, title: 'Interdependence',
+    { topicId: T.inter, title: 'Interdependence', diagram: 'interdependence',
       points: [
         'Interdependence: organisms in an ecosystem depend on each other (for food, shelter, pollination…).',
         'If one population changes, others in the web change too.',
@@ -104,7 +104,7 @@ export const science: SubjectContent = {
         'Bioaccumulation (bonus): toxic chemicals build up along a food chain, so top predators get the most.',
       ],
       tip: 'Change one link, and the whole web wobbles.' },
-    { topicId: T.adapt, title: 'Adaptation',
+    { topicId: T.adapt, title: 'Adaptation', diagram: 'adaptation',
       points: [
         'An adaptation is a feature that helps an organism survive in its habitat.',
         'Polar bear: thick fur and fat for warmth, white fur for camouflage, big paws to spread weight on ice.',
@@ -122,7 +122,7 @@ export const science: SubjectContent = {
         'Molecule: two or more atoms chemically joined together (e.g. O₂).',
       ],
       tip: 'Compound = chemically joined. Mixture = just mixed.' },
-    { topicId: T.table, title: 'Symbols and the periodic table',
+    { topicId: T.table, title: 'Symbols and the periodic table', diagram: 'periodic-table',
       points: [
         'Every element has a symbol: one capital letter, sometimes followed by a small letter (Na, not NA).',
         'Learn: H hydrogen, He helium, C carbon, N nitrogen, O oxygen, Na sodium, Mg magnesium, Al aluminium, Cl chlorine, Fe iron, Cu copper, Ca calcium, K potassium, Au gold, Ag silver, S sulfur, Zn zinc.',
@@ -139,7 +139,7 @@ export const science: SubjectContent = {
         'Heating gives particles more energy, so they move or vibrate faster.',
       ],
       tip: 'Solid = vibrate. Liquid = slide. Gas = zoom.' },
-    { topicId: T.changes, title: 'Changes of state',
+    { topicId: T.changes, title: 'Changes of state', diagram: 'changes-of-state',
       points: [
         'Melting: solid → liquid. Freezing: liquid → solid.',
         'Evaporating/boiling: liquid → gas. Condensing: gas → liquid.',
@@ -148,7 +148,7 @@ export const science: SubjectContent = {
         'Changes of state are physical changes: they are reversible, and the mass stays the same.',
       ],
       tip: 'Evaporation happens at the surface at any temperature. Boiling happens throughout the liquid at the boiling point.' },
-    { topicId: T.diffusion, title: 'Diffusion and gas pressure',
+    { topicId: T.diffusion, title: 'Diffusion and gas pressure', diagram: 'diffusion',
       points: [
         'Diffusion: particles spreading out from where there are lots of them (high concentration) to where there are fewer (low concentration).',
         'It happens in liquids and gases, because their particles move around. Example: smelling perfume across a room.',
@@ -165,7 +165,7 @@ export const science: SubjectContent = {
         'Force diagrams use arrows: the direction shows which way the force acts, and a longer arrow means a bigger force.',
       ],
       tip: 'Arrow length = size, arrow direction = direction.' },
-    { topicId: T.resultant, title: 'Balanced and unbalanced forces',
+    { topicId: T.resultant, title: 'Balanced and unbalanced forces', diagram: 'balanced-forces',
       points: [
         'Resultant force: the overall force when all forces are combined.',
         'Same direction: add them. Opposite directions: subtract the smaller from the larger.',
@@ -173,7 +173,7 @@ export const science: SubjectContent = {
         'Unbalanced forces: the object speeds up, slows down or changes direction.',
       ],
       tip: 'Balanced ≠ stopped. Balanced = no change in motion.' },
-    { topicId: T.weight, title: 'Mass and weight',
+    { topicId: T.weight, title: 'Mass and weight', diagram: 'mass-weight',
       points: [
         'Mass is the amount of matter in an object, measured in kilograms (kg). It is the same everywhere.',
         'Weight is the force of gravity on a mass, measured in newtons (N).',
@@ -182,7 +182,7 @@ export const science: SubjectContent = {
         'Example: a 50 kg person weighs 50 × 10 = 500 N on Earth.',
       ],
       tip: 'Mass in kg, weight in N.' },
-    { topicId: T.friction, title: 'Friction and drag',
+    { topicId: T.friction, title: 'Friction and drag', diagram: 'friction-drag',
       points: [
         'Friction is a contact force that acts against movement when surfaces rub. It causes heating and wear.',
         'Friction is useful (grip for shoes, tyres, brakes) but can be a nuisance (wears parts out, wastes energy).',
@@ -191,7 +191,7 @@ export const science: SubjectContent = {
         'Lubricants like oil reduce friction.',
       ],
       tip: 'Friction always opposes motion.' },
-    { topicId: T.springs, title: 'Stretching springs',
+    { topicId: T.springs, title: 'Stretching springs', diagram: 'spring',
       points: [
         'Extension = stretched length − original length.',
         'Hooke’s law: extension is proportional to force (double the force, double the extension).',
@@ -199,7 +199,7 @@ export const science: SubjectContent = {
         'A force-extension graph is a straight line through the origin while Hooke’s law applies.',
       ],
       tip: 'Measure extension, not total length.' },
-    { topicId: T.speed, title: 'Speed',
+    { topicId: T.speed, title: 'Speed', diagram: 'speed',
       points: [
         'Speed = distance ÷ time.',
         'Units: metres per second (m/s), or kilometres per hour (km/h).',

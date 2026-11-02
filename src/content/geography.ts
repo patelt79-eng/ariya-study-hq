@@ -35,7 +35,7 @@ export const geography: SubjectContent = {
   ],
 
   learn: [
-    { topicId: T.biomes, title: 'What is a biome?',
+    { topicId: T.biomes, title: 'What is a biome?', diagram: 'biomes',
       points: [
         'A biome is a large area of the world with a similar climate, plants (flora) and animals (fauna).',
         'Biodiversity: the variety of living things in an area. Rainforests have the highest biodiversity on land.',
@@ -43,7 +43,7 @@ export const geography: SubjectContent = {
         'Adaptation: a feature that helps a plant or animal survive in its environment.',
       ],
       tip: 'Flora = plants (think flowers). Fauna = animals.' },
-    { topicId: T.biomes, title: 'Tropical rainforest',
+    { topicId: T.biomes, title: 'Tropical rainforest', diagram: 'rainforest',
       points: [
         'Where: near the Equator, between the Tropics of Cancer and Capricorn: the Amazon (South America), the Congo (Africa) and South-East Asia.',
         'Why there: the sun is high overhead, so it is hot (about 27 °C) all year. Warm, moist air rises, cools and condenses, giving heavy rain almost every afternoon (over 2,000 mm a year).',
@@ -52,7 +52,7 @@ export const geography: SubjectContent = {
         'Threats: deforestation for logging, cattle ranching, palm oil, mining and roads; climate change.',
       ],
       tip: 'Hot + wet all year = rainforest.' },
-    { topicId: T.biomes, title: 'Hot desert',
+    { topicId: T.biomes, title: 'Hot desert', diagram: 'desert',
       points: [
         'Where: around 30° north and south of the Equator, e.g. the Sahara (Africa), the Arabian Desert and the Australian deserts.',
         'Climate: very dry (under 250 mm of rain a year), very hot days and cold nights.',
@@ -61,7 +61,7 @@ export const geography: SubjectContent = {
         'Threats: desertification, overgrazing, using too much water, climate change.',
       ],
       tip: 'Desert = dry, not always hot (Antarctica is a cold desert).' },
-    { topicId: T.biomes, title: 'Tundra',
+    { topicId: T.biomes, title: 'Tundra', diagram: 'tundra',
       points: [
         'Where: high latitudes near the Arctic, e.g. northern Canada, Alaska, northern Russia, Greenland and northern Scandinavia.',
         'Climate: very cold, long dark winters, short cool summers, little precipitation. The ground below is permanently frozen (permafrost).',
@@ -70,7 +70,7 @@ export const geography: SubjectContent = {
         'Threats: climate change melting permafrost; oil, gas and mineral extraction.',
       ],
       tip: 'Tundra = treeless and frozen.' },
-    { topicId: T.biomes, title: 'Savanna',
+    { topicId: T.biomes, title: 'Savanna', diagram: 'savanna',
       points: [
         'Where: between the rainforest and the deserts, e.g. central and eastern Africa (the Serengeti), northern Australia and parts of Brazil and India.',
         'Climate: hot all year with a wet season and a long dry season.',
@@ -87,7 +87,7 @@ export const geography: SubjectContent = {
         'Antarctica has no countries and no permanent population.',
       ],
       tip: 'Order by size: Asia, Africa, North America, South America, Antarctica, Europe, Oceania.' },
-    { topicId: T.cco, title: 'Oceans',
+    { topicId: T.cco, title: 'Oceans', diagram: 'oceans',
       points: [
         'There are 5 oceans: Pacific (largest), Atlantic, Indian, Southern and Arctic (smallest).',
         'Pacific: between Asia/Australia and the Americas.',
@@ -96,7 +96,7 @@ export const geography: SubjectContent = {
         'Southern: around Antarctica. Arctic: around the North Pole, bordered by Russia, Canada, Greenland, Norway and the USA (Alaska).',
       ],
       tip: 'Pacific is the biggest; Arctic is the smallest.' },
-    { topicId: T.uk, title: 'The United Kingdom',
+    { topicId: T.uk, title: 'The United Kingdom', diagram: 'uk-map',
       points: [
         'The UK has four countries: England, Scotland, Wales and Northern Ireland.',
         'Capitals: London (England and the UK), Edinburgh (Scotland), Cardiff (Wales), Belfast (Northern Ireland).',
@@ -104,7 +104,7 @@ export const geography: SubjectContent = {
         'Coventry is in the West Midlands region of England.',
       ],
       tip: 'L-E-C-B: London, Edinburgh, Cardiff, Belfast.' },
-    { topicId: T.pangaea, title: 'Pangaea and continental drift',
+    { topicId: T.pangaea, title: 'Pangaea and continental drift', diagram: 'pangaea',
       points: [
         'Pangaea was a supercontinent containing all the land on Earth, surrounded by one ocean (Panthalassa).',
         'About 200 million years ago it began to break apart, first into Laurasia (north) and Gondwana (south).',
@@ -120,7 +120,7 @@ export const geography: SubjectContent = {
         'These loops are convection currents, and they drag the plates with them: this split Pangaea apart.',
       ],
       tip: 'Heat rises, cools, sinks: a conveyor belt under the plates.' },
-    { topicId: T.glaciers, title: 'Glaciers',
+    { topicId: T.glaciers, title: 'Glaciers', diagram: 'glacier',
       points: [
         'A glacier is a large mass of ice that moves slowly downhill under its own weight.',
         'Where: the huge ice sheets of Antarctica and Greenland, and mountain ranges like the Alps, Himalayas, Andes and Rockies.',
@@ -128,7 +128,7 @@ export const geography: SubjectContent = {
         'Features: corries, arêtes, pyramidal peaks, U-shaped valleys (erosion); moraine, drumlins and erratics (deposition).',
       ],
       tip: 'Rivers make V-shaped valleys; glaciers make U-shaped valleys.' },
-    { topicId: T.glaciers, title: 'Effects of glacial melt',
+    { topicId: T.glaciers, title: 'Effects of glacial melt', diagram: 'glacial-melt',
       points: [
         'Rising temperatures are making glaciers and ice sheets melt faster.',
         'Sea levels rise, flooding low-lying coasts and islands.',
@@ -147,7 +147,7 @@ export const geography: SubjectContent = {
         'Percolation: water soaks down through soil into the rock below. Groundwater flow: water moves slowly through rock back to rivers and the sea.',
       ],
       tip: 'The hydrological cycle is a closed system: the water just keeps moving.' },
-    { topicId: T.coventry, title: 'Coventry',
+    { topicId: T.coventry, title: 'Coventry', diagram: 'coventry',
       points: [
         'A city in the West Midlands of England, with a population of about 345,000.',
         'Physical features: fairly flat, gently rolling land; the River Sherbourne (which flows under the city centre) and the River Sowe; parks like War Memorial Park.',
@@ -156,7 +156,7 @@ export const geography: SubjectContent = {
         'Deindustrialisation: many car factories closed in the 1970s–80s, causing job losses; new jobs grew in services, universities and research.',
       ],
       tip: 'Cathedral, cars, culture.' },
-    { topicId: T.coventry, title: 'Push and pull factors',
+    { topicId: T.coventry, title: 'Push and pull factors', diagram: 'push-pull',
       points: [
         'Urbanisation: an increase in the proportion of people living in towns and cities.',
         'Push factor: something that makes people want to LEAVE a place (e.g. lack of jobs, crime, pollution, high housing costs).',
@@ -172,7 +172,7 @@ export const geography: SubjectContent = {
         'Tectonic hazards: earthquakes, volcanic eruptions and tsunamis.',
       ],
       tip: 'Converge = come together. Diverge = drift apart. Conserve = no crust made or lost.' },
-    { topicId: T.tectonic, title: 'Earthquakes, volcanoes and tsunamis',
+    { topicId: T.tectonic, title: 'Earthquakes, volcanoes and tsunamis', diagram: 'earthquake-tsunami',
       points: [
         'Earthquake: pressure builds as plates stick, then is released suddenly, sending seismic waves through the ground. The focus is where it starts underground; the epicentre is the point on the surface directly above.',
         'Volcano: magma rises through cracks in the crust and erupts as lava, ash and gas. Pyroclastic flows (fast clouds of hot ash and gas) are the deadliest.',
@@ -180,7 +180,7 @@ export const geography: SubjectContent = {
         'Example: the 2004 Indian Ocean tsunami (Boxing Day) and the 2011 Japan tsunami.',
       ],
       tip: 'Seabed moves → water moves → tsunami.' },
-    { topicId: T.climatic, title: 'Tropical storms',
+    { topicId: T.climatic, title: 'Tropical storms', diagram: 'tropical-storm',
       points: [
         'Called hurricanes (Atlantic), typhoons (north-west Pacific) or cyclones (Indian Ocean).',
         'They form over warm oceans (at least 26.5 °C) between about 5° and 30° from the Equator.',
@@ -189,7 +189,7 @@ export const geography: SubjectContent = {
         'Effects: very strong winds, heavy rain, storm surges, flooding and landslides.',
       ],
       tip: 'Warm water is the fuel.' },
-    { topicId: T.climatic, title: 'Droughts and floods',
+    { topicId: T.climatic, title: 'Droughts and floods', diagram: 'drought-flood',
       points: [
         'Climatic hazards are caused by weather and climate: tropical storms, droughts, floods, tornadoes, heatwaves and wildfires.',
         'Drought: a long period with much less rainfall than normal, causing a water shortage.',
@@ -197,7 +197,7 @@ export const geography: SubjectContent = {
         'Flood: when water covers land that is normally dry, e.g. after heavy rain or a storm surge.',
       ],
       tip: 'Tectonic = from the ground. Climatic = from the weather.' },
-    { topicId: T.development, title: 'Development',
+    { topicId: T.development, title: 'Development', diagram: 'development',
       points: [
         'Development: how economically and socially advanced a country is, and the quality of life of its people.',
         'Developed countries (HICs): high income, good healthcare and education, e.g. the UK, USA, Japan.',
@@ -206,7 +206,7 @@ export const geography: SubjectContent = {
         'Measured by GDP per person, life expectancy, literacy rate, infant mortality and the HDI.',
       ],
       tip: 'Developed, developing, emerging.' },
-    { topicId: T.development, title: 'Why development is uneven; BRICS',
+    { topicId: T.development, title: 'Why development is uneven; BRICS', diagram: 'brics',
       points: [
         'Physical reasons: natural hazards, extreme climate, being landlocked, few natural resources, disease.',
         'Human reasons: history of colonialism, war and conflict, corruption, debt, unfair trade.',
@@ -214,7 +214,7 @@ export const geography: SubjectContent = {
         'More countries have joined BRICS since 2024, but learn the original five for your assessment.',
       ],
       tip: 'B-R-I-C-S: Brazil, Russia, India, China, South Africa.' },
-    { topicId: T.energy, title: 'Energy resources',
+    { topicId: T.energy, title: 'Energy resources', diagram: 'energy',
       points: [
         'Non-renewable energy: will run out. Fossil fuels (coal, oil, natural gas) and nuclear (uranium).',
         'Benefits of non-renewables: reliable, produce lots of energy, power stations already exist. Costs: release carbon dioxide (climate change), air pollution, oil spills, nuclear waste, will run out.',

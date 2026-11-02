@@ -16,6 +16,8 @@ import { markGesture, stop as stopSpeech } from './audio/speech';
 const SubjectPage = lazy(() => import('./components/subject/SubjectPage').then((m) => ({ default: m.SubjectPage })));
 const Settings = lazy(() => import('./components/settings/Settings').then((m) => ({ default: m.Settings })));
 const Parent = lazy(() => import('./components/parent/Parent').then((m) => ({ default: m.Parent })));
+// Development only: a gallery of every learn-card picture (#/pictures). Not included in the live build.
+const PictureGallery = import.meta.env.DEV ? lazy(() => import('./components/dev/PictureGallery')) : null;
 const PlanPage = lazy(() => import('./components/home/PlanPage').then((m) => ({ default: m.PlanPage })));
 
 export default function App() {
@@ -74,6 +76,7 @@ function Shell() {
     else if (a === 'settings') screen = <Settings />;
     else if (a === 'parent') screen = <Parent />;
     else if (a === 'plan') screen = <PlanPage />;
+    else if (a === 'pictures' && PictureGallery) screen = <PictureGallery />;
     else screen = <Home />;
   }
 

@@ -70,7 +70,7 @@ export const maths: SubjectContent = {
         'Parallelogram: opposite angles are equal.',
       ],
       tip: 'Four sides, four angles, 360°.' },
-    { topicId: T.simp, title: 'Simplifying ratios',
+    { topicId: T.simp, title: 'Simplifying ratios', diagram: 'ratio-simplify',
       points: [
         'A ratio compares amounts, written with a colon, like 6 : 9.',
         'Simplify by dividing every part by the highest common factor (HCF).',
@@ -78,7 +78,7 @@ export const maths: SubjectContent = {
         'Make the units the same first: 50p : £2 = 50 : 200 = 1 : 4.',
       ],
       tip: 'Fully simplified = no number (except 1) divides into every part.' },
-    { topicId: T.frac, title: 'Ratio to fraction',
+    { topicId: T.frac, title: 'Ratio to fraction', diagram: 'ratio-fraction',
       points: [
         'Add the parts to find the total number of parts.',
         'In 2 : 3 there are 2 + 3 = 5 parts.',
@@ -94,7 +94,7 @@ export const maths: SubjectContent = {
         'Check: the answers should add up to the total (15 + 25 = 40).',
       ],
       tip: 'Add, divide, multiply, check.' },
-    { topicId: T.part, title: 'Given one part',
+    { topicId: T.part, title: 'Given one part', diagram: 'ratio-part',
       points: [
         'Sometimes you are told how much ONE person gets, not the total.',
         'Boys : girls = 2 : 3 and there are 12 boys.',
@@ -102,7 +102,7 @@ export const maths: SubjectContent = {
         'Draw a bar model to see which part you know.',
       ],
       tip: 'Find the value of one part first.' },
-    { topicId: T.diff, title: 'Given the difference',
+    { topicId: T.diff, title: 'Given the difference', diagram: 'ratio-diff',
       points: [
         'Sometimes you are told how many MORE one has than the other.',
         'Ratio 5 : 2, and A has 15 more than B.',
@@ -110,7 +110,7 @@ export const maths: SubjectContent = {
         'A = 25, B = 10. Check: 25 − 10 = 15 ✓.',
       ],
       tip: 'Difference in parts = difference in amounts.' },
-    { topicId: T.recipe, title: 'Recipes',
+    { topicId: T.recipe, title: 'Recipes', diagram: 'recipe',
       points: [
         'Recipes use proportion: everything scales by the same amount.',
         'Find the multiplier: new number of people ÷ old number of people.',
@@ -118,7 +118,7 @@ export const maths: SubjectContent = {
         'Unitary method: work out the amount for 1 person, then multiply.',
       ],
       tip: 'Find 1, then find any.' },
-    { topicId: T.cur, title: 'Currency conversion',
+    { topicId: T.cur, title: 'Currency conversion', diagram: 'currency',
       points: [
         'The exchange rate tells you what £1 is worth, e.g. £1 = €1.20.',
         'Pounds → other currency: MULTIPLY by the rate. £50 × 1.2 = €60.',
@@ -126,7 +126,7 @@ export const maths: SubjectContent = {
         'Sense check: euros are worth less, so you get more of them.',
       ],
       tip: 'Leaving the UK? Multiply. Coming home? Divide.' },
-    { topicId: T.place, title: 'Place value',
+    { topicId: T.place, title: 'Place value', diagram: 'place-value',
       points: [
         'Each column is 10 times bigger than the one to its right.',
         'In 4,382.15: 4 thousands, 3 hundreds, 8 tens, 2 ones, 1 tenth, 5 hundredths.',
@@ -134,7 +134,7 @@ export const maths: SubjectContent = {
         'Compare decimals column by column from the left: 0.45 > 0.405.',
       ],
       tip: 'Move the digits, not the decimal point.' },
-    { topicId: T.ops, title: 'Written methods',
+    { topicId: T.ops, title: 'Written methods', diagram: 'written-methods',
       points: [
         'Column addition and subtraction: line up the place values.',
         'Multiplication: grid method or long multiplication.',
@@ -142,7 +142,7 @@ export const maths: SubjectContent = {
         'Estimate first (round), so you can spot a silly answer.',
       ],
       tip: 'Estimate, calculate, check.' },
-    { topicId: T.tables, title: 'Times tables',
+    { topicId: T.tables, title: 'Times tables', diagram: 'times-tables',
       points: [
         'Know every fact up to 12 × 12 quickly.',
         'Division facts are the reverse: 7 × 8 = 56, so 56 ÷ 8 = 7.',
@@ -158,7 +158,7 @@ export const maths: SubjectContent = {
         'Multiplying or dividing: same signs → positive, different signs → negative.',
       ],
       tip: 'Two minuses next to each other make a plus.' },
-    { topicId: T.bidmas, title: 'BIDMAS',
+    { topicId: T.bidmas, title: 'BIDMAS', diagram: 'bidmas',
       points: [
         'Brackets → Indices (powers) → Division and Multiplication → Addition and Subtraction.',
         'D and M have equal priority: work left to right. Same for A and S.',
@@ -166,7 +166,7 @@ export const maths: SubjectContent = {
         '(3 + 4) × 2 = 7 × 2 = 14.',
       ],
       tip: 'Brackets first, then powers, then × ÷, then + −.' },
-    { topicId: T.fdp, title: 'Fractions, decimals, percentages',
+    { topicId: T.fdp, title: 'Fractions, decimals, percentages', diagram: 'fdp',
       points: [
         'Percent means "out of 100": 35% = 35/100 = 0.35.',
         'Fraction → decimal: divide the top by the bottom. 3/8 = 0.375.',
@@ -174,14 +174,14 @@ export const maths: SubjectContent = {
         'Learn these: 1/2 = 0.5 = 50%, 1/4 = 0.25 = 25%, 3/4 = 75%, 1/5 = 20%, 1/10 = 10%, 1/3 ≈ 33.3%.',
       ],
       tip: 'Percent = per hundred.' },
-    { topicId: T.fracAmt, title: 'Fraction of an amount',
+    { topicId: T.fracAmt, title: 'Fraction of an amount', diagram: 'fraction-amount',
       points: [
         'Divide by the bottom (denominator), then multiply by the top (numerator).',
         '3/5 of 40: 40 ÷ 5 = 8, then 8 × 3 = 24.',
         'Unit fractions (1/n) only need the divide step.',
       ],
       tip: 'Divide by the bottom, times by the top.' },
-    { topicId: T.pctAmt, title: 'Percentage of an amount',
+    { topicId: T.pctAmt, title: 'Percentage of an amount', diagram: 'percent-amount',
       points: [
         'Non-calculator: build from 10% and 1%.',
         '10% = ÷ 10. 5% = half of 10%. 1% = ÷ 100. 50% = half.',
@@ -189,7 +189,7 @@ export const maths: SubjectContent = {
         'Increase by a %: work out the % then add it on.',
       ],
       tip: '10% is your best friend.' },
-    { topicId: T.eq, title: 'Simple equations',
+    { topicId: T.eq, title: 'Simple equations', diagram: 'equations',
       points: [
         'An equation has an unknown (like x) and an equals sign.',
         'Do the inverse (opposite) operation to both sides.',

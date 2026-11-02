@@ -3,6 +3,18 @@ import type { ReactNode } from 'react';
 import { AngleDiagram } from '../practise/maths/AngleDiagram';
 import { SCIENCE_DIAGRAMS } from '../practise/science/ScienceDiagrams';
 import { GEO_DIAGRAMS } from '../practise/geography/GeoDiagrams';
+import { Pic, type Picture } from '../pictures/kit';
+import { MATHS_PICTURES } from '../pictures/maths';
+import { SCIENCE_PICTURES } from '../pictures/science';
+import { ENGLISH_PICTURES } from '../pictures/english';
+import { RE_PICTURES } from '../pictures/re';
+import { GEOGRAPHY_PICTURES } from '../pictures/geography';
+import { HISTORY_PICTURES } from '../pictures/history';
+
+/** Learn-card pictures for every subject (see src/components/pictures). */
+const PICTURES: Record<string, Picture> = {
+  ...MATHS_PICTURES, ...SCIENCE_PICTURES, ...ENGLISH_PICTURES, ...RE_PICTURES, ...GEOGRAPHY_PICTURES, ...HISTORY_PICTURES,
+};
 
 const box = { width: '100%', maxWidth: 420, display: 'block', margin: '8px auto', background: 'var(--surface-solid)', borderRadius: 12 } as const;
 
@@ -43,6 +55,8 @@ const DIAGRAMS: Record<string, () => ReactNode> = {
 export function registerDiagrams(more: Record<string, () => ReactNode>) { Object.assign(DIAGRAMS, more); }
 
 export function Diagram({ name }: { name: string }) {
+  const pic = PICTURES[name];
+  if (pic) return <Pic alt={pic.alt} bg={pic.bg}>{pic.draw()}</Pic>;
   const d = DIAGRAMS[name];
   return d ? <>{d()}</> : null;
 }
@@ -68,5 +82,5 @@ const DIAGRAM_TEXT: Record<string, string> = {
 };
 
 export function diagramText(name?: string): string {
-  return name ? DIAGRAM_TEXT[name] ?? '' : '';
+  return name ? DIAGRAM_TEXT[name] ?? PICTURES[name]?.alt ?? '' : '';
 }
