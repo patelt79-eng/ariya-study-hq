@@ -49,3 +49,10 @@ describe('maths generators', () => {
     }
   });
 });
+
+describe('diagram descriptions for Listen mode', () => {
+  it('every diagram used on a learn card has a spoken description', async () => {
+    const { diagramText } = await import('../components/subject/Diagrams');
+    for (const s of SUBJECT_LIST) for (const c of s.learn) if (c.diagram) expect(diagramText(c.diagram), c.diagram).not.toBe('');
+  });
+});

@@ -128,7 +128,8 @@ export function AngleDiagram({ spec, label }: { spec: AngleSpec; label?: string 
   );
 }
 
-function describe(s: AngleSpec): string {
+/** Spoken/alt-text description of an angle diagram. */
+export function describe(s: AngleSpec): string {
   const parts = s.angles.map((a, i) => (i === s.unknown ? 'x' : `${a} degrees`)).filter((_, i) => !(s.type === 'triangle' && s.hide?.includes(i) && i !== s.unknown));
   const name = { line: 'Angles on a straight line', point: 'Angles around a point', triangle: 'Triangle with angles', quad: 'Quadrilateral with angles' }[s.type];
   return `${name}: ${parts.join(', ')}${s.type === 'triangle' && s.isosceles ? '. Two sides are marked equal.' : ''}`;

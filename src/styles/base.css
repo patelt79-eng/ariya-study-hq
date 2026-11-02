@@ -186,3 +186,12 @@ th { font-size: 0.9rem; color: var(--muted); }
   .card { padding: 14px; }
   .hide-phone { display: none !important; }
 }
+
+/* ---------- Listen mode ---------- */
+.listen-btn, .listen-toggle { min-height: 44px; min-width: 44px; white-space: nowrap; }
+.listen-btn[aria-pressed='true'] { border-style: dashed; border-color: var(--accent); }
+.listen-btn:focus-visible, .listen-toggle:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+summary.disclosure { cursor: pointer; min-height: 44px; display: flex; align-items: center; gap: 8px; list-style: none; }
+summary.disclosure::-webkit-details-marker { display: none; }
+summary.disclosure::before { content: '▸'; font-size: 1.1em; }
+details[open] > summary.disclosure::before { content: '▾'; }

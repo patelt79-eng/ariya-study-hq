@@ -9,7 +9,9 @@ import { go } from '../../lib/router';
 import { play } from '../../lib/sound';
 import { celebrate } from '../../lib/confetti';
 import { useMission } from '../focus/Mission';
-import { Diagram } from './Diagrams';
+import { Diagram, diagramText } from './Diagrams';
+import { ListenButton, ListenToggle, useAutoRead } from '../audio/Listen';
+import { sentences } from '../../audio/speech';
 import { Flashcards } from './Flashcards';
 import { Quiz } from './Quiz';
 
@@ -17,6 +19,7 @@ const QUIZ_LENGTH = 5;
 type Step = 'learn' | 'cards' | 'quiz' | 'done';
 
 const isDone = (l?: LessonState) => l?.quiz !== undefined;
+
 
 /** Learn cards for a topic. Topics with only key words get cards built from their flashcards. */
 function cardsFor(subject: SubjectContent, topic: Topic): LearnCard[] {
@@ -139,12 +142,19 @@ function Lesson({ subject, topic }: { subject: SubjectContent; topic: Topic }) {
     { id: 'quiz', label: 'Quiz', icon: '❓', done: isDone(p.lessons[topic.id]) },
   ];
   const card = cards[k];
+  const learnText = card ? sentences([card.title, ...card.points, card.tip && `Tip: ${card.tip}`, diagramText(card.diagram)]) : '';
+  const doneText = sentences(['Topic complete!', score >= 80 ? 'Brilliant: you really know this one' : score >= 50 ? 'Good work. Redo it another day to make it stick' : 'Well done for finishing. Come back to this topic tomorrow: it gets easier every time']);
+  useAutoRead(`lesson:${topic.id}:learn:${k}`, learnText, step === 'learn' && !!card);
+  useAutoRead(`lesson:${topic.id}:done`, doneText, step === 'done');
 
   return (
     <div className="stack">
       <div className="row" style={{ justifyContent: 'space-between' }}>
         <button className="btn ghost small" onClick={() => go(`subject/${subject.id}/learn`)}>← All topics</button>
-        <span className="small muted">Topic {index + 1} of {subject.topics.length}</span>
+        <span className="row" style={{ gap: 8 }}>
+          <ListenToggle />
+          <span className="small muted">Topic {index + 1} of {subject.topics.length}</span>
+        </span>
       </div>
       <h2 style={{ margin: 0 }}>{topic.title}</h2>
 
@@ -172,7 +182,10 @@ function Lesson({ subject, topic }: { subject: SubjectContent; topic: Topic }) {
         <motion.div key={step + k} initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -24 }} transition={{ duration: 0.2 }}>
           {step === 'learn' && card && (
             <article className="card stack" style={{ borderLeft: `6px solid ${subject.colour}` }}>
-              {cards.length > 1 && <div className="small muted">Card {k + 1} of {cards.length}</div>}
+              <div className="row" style={{ justifyContent: 'space-between' }}>
+                {cards.length > 1 ? <span className="small muted">Card {k + 1} of {cards.length}</span> : <span />}
+                <ListenButton id={`lesson:${topic.id}:learn:${k}`} text={learnText} />
+              </div>
               <h3 style={{ margin: 0, fontSize: 'calc(1.4rem * var(--display-size))' }}>{card.title}</h3>
               {card.diagram && <Diagram name={card.diagram} />}
               <ul style={{ margin: 0, paddingLeft: 22, fontSize: '1.1rem', lineHeight: 1.6 }}>
@@ -208,6 +221,7 @@ function Lesson({ subject, topic }: { subject: SubjectContent; topic: Topic }) {
             <section className="card center stack" style={{ alignItems: 'center' }}>
               <motion.div style={{ fontSize: 64 }} initial={{ scale: 0, rotate: -30 }} animate={{ scale: 1, rotate: 0 }} transition={{ type: 'spring' }} aria-hidden>⭐</motion.div>
               <h2 style={{ margin: 0 }}>Topic complete!</h2>
+              <ListenButton id={`lesson:${topic.id}:done`} text={doneText} />
               <p style={{ margin: 0 }}>{score >= 80 ? 'Brilliant: you really know this one.' : score >= 50 ? 'Good work. Redo it another day to make it stick.' : 'Well done for finishing. Come back to this topic tomorrow: it gets easier every time.'}</p>
               <p className="small muted" style={{ margin: 0 }}>Tip: on the “What’s on the test” tab, update your Red/Amber/Green rating for this topic.</p>
               <div className="row" style={{ justifyContent: 'center' }}>

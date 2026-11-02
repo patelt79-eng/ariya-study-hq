@@ -6,7 +6,9 @@ import { isAcceptable } from '../../lib/fuzzy';
 import { shuffle } from '../../lib/random';
 import { play } from '../../lib/sound';
 import { Draggable } from '../dnd/Draggable';
-import { AngleDiagram, type AngleSpec } from '../practise/maths/AngleDiagram';
+import { AngleDiagram, describe, type AngleSpec } from '../practise/maths/AngleDiagram';
+import { ListenButton, useAutoRead } from '../audio/Listen';
+import { sentences, stop as stopSpeech } from '../../audio/speech';
 
 export interface Answered { correct: boolean; given: string }
 
@@ -19,6 +21,28 @@ export function QuestionView({ q, onAnswered, onNext, disabled }: {
   const [result, setResult] = useState<Answered | null>(null);
   const controls = useAnimationControls();
   useEffect(() => { setResult(null); }, [q.id]);
+  // MCQ option order is decided here so the read-aloud letters match the screen.
+  const order = useMemo(() => (q.kind === 'mcq' ? shuffle(q.options.map((_, i) => i)) : []), [q.id]); // eslint-disable-line react-hooks/exhaustive-deps
+  const praise = useMemo(() => pickPraise(), [q.id, result?.correct]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const questionText = sentences([
+    q.prompt,
+    q.figure ? describe(q.figure as AngleSpec) : undefined,
+    q.kind === 'mcq' ? order.map((i, k) => `${'ABCD'[k]}: ${q.options[i]}`).join('. ') : undefined,
+    q.kind === 'tf' ? 'True or false?' : undefined,
+    q.kind === 'type' ? 'Type your answer.' : undefined,
+    q.kind === 'match' ? `Match each one: ${q.pairs.map((p) => p[0]).join(', ')}. The choices are: ${q.pairs.map((p) => p[1]).join(', ')}` : undefined,
+  ]);
+  const answerText = q.kind === 'type' ? q.accept[0] : q.kind === 'mcq' ? q.options[q.answer] : q.kind === 'tf' ? (q.answer ? 'True' : 'False') : undefined;
+  const feedbackText = result ? sentences([
+    result.correct ? praise : 'Not quite. Here’s why',
+    !result.correct && answerText ? `The answer is ${answerText}` : undefined,
+    q.explain,
+    ...(!result.correct && q.steps ? q.steps : []),
+  ]) : '';
+  useAutoRead(`q:${q.id}:question`, questionText, !result);
+  useAutoRead(`q:${q.id}:feedback:${result ? 'shown' : ''}`, feedbackText, !!result);
+  const next = () => { stopSpeech(); onNext(); };
 
   const submit = (a: Answered) => {
     if (result) return;
@@ -31,21 +55,27 @@ export function QuestionView({ q, onAnswered, onNext, disabled }: {
 
   return (
     <motion.div animate={controls}>
-      <h2 style={{ fontFamily: 'var(--font-body)', fontSize: '1.3rem', fontWeight: 700 }}>{q.prompt}</h2>
+      <div className="row" style={{ alignItems: 'flex-start', flexWrap: 'nowrap' }}>
+        <h2 style={{ fontFamily: 'var(--font-body)', fontSize: '1.3rem', fontWeight: 700, flex: 1 }}>{q.prompt}</h2>
+        <ListenButton id={`q:${q.id}:question`} text={questionText} />
+      </div>
       {q.figure ? <AngleDiagram spec={q.figure as AngleSpec} /> : null}
-      {q.kind === 'mcq' && <MCQView q={q} locked={locked} result={result} onPick={(i) => submit({ correct: i === q.answer, given: q.options[i] })} />}
+      {q.kind === 'mcq' && <MCQView q={q} order={order} locked={locked} result={result} onPick={(i) => submit({ correct: i === q.answer, given: q.options[i] })} />}
       {q.kind === 'tf' && <TFView answer={q.answer} locked={locked} result={result} onPick={(v) => submit({ correct: v === q.answer, given: v ? 'True' : 'False' })} />}
       {q.kind === 'type' && <TypeView key={q.id} q={q} locked={locked} onSubmit={(s) => submit({ correct: isAcceptable(s, q.accept, q.numeric), given: s })} />}
       {q.kind === 'match' && <MatchView key={q.id} pairs={q.pairs} locked={locked} onSubmit={(ok, given) => submit({ correct: ok, given })} />}
       {result && (
         <motion.div className={`feedback ${result.correct ? 'good' : 'bad'}`} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} role="status">
-          <strong>{result.correct ? pickPraise() : 'Not quite. Here’s why…'}</strong>
+          <div className="row" style={{ justifyContent: 'space-between', alignItems: 'flex-start' }}>
+            <strong>{result.correct ? praise : 'Not quite. Here’s why…'}</strong>
+            <ListenButton id={`q:${q.id}:feedback:shown`} text={feedbackText} />
+          </div>
           {!result.correct && q.kind === 'type' && <div>Answer: <strong>{q.accept[0]}</strong></div>}
           {!result.correct && q.kind === 'mcq' && <div>Answer: <strong>{q.options[q.answer]}</strong></div>}
           {!result.correct && q.kind === 'tf' && <div>Answer: <strong>{q.answer ? 'True' : 'False'}</strong></div>}
           <div>{q.explain}</div>
           {q.steps && !result.correct && <ol style={{ margin: '8px 0 0', paddingLeft: 22 }}>{q.steps.map((st, k) => <li key={k}>{st}</li>)}</ol>}
-          <button className="btn" style={{ marginTop: 12 }} onClick={onNext} autoFocus>Next →</button>
+          <button className="btn" style={{ marginTop: 12 }} onClick={next} autoFocus>Next →</button>
         </motion.div>
       )}
     </motion.div>
@@ -55,8 +85,7 @@ export function QuestionView({ q, onAnswered, onNext, disabled }: {
 const PRAISE = ['Correct!', 'Nailed it!', 'Yes! Spot on.', 'Brilliant!', 'Great thinking!', 'Correct, nice work!'];
 function pickPraise() { return PRAISE[Math.floor(Math.random() * PRAISE.length)]; }
 
-function MCQView({ q, locked, result, onPick }: { q: Extract<Question, { kind: 'mcq' }>; locked: boolean; result: Answered | null; onPick: (i: number) => void }) {
-  const order = useMemo(() => shuffle(q.options.map((_, i) => i)), [q.id]); // eslint-disable-line react-hooks/exhaustive-deps
+function MCQView({ q, order, locked, result, onPick }: { q: Extract<Question, { kind: 'mcq' }>; order: number[]; locked: boolean; result: Answered | null; onPick: (i: number) => void }) {
   const [picked, setPicked] = useState<number | null>(null);
   return (
     <div className="stack">

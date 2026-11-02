@@ -7,6 +7,8 @@ import { shuffle } from '../../lib/random';
 import { play } from '../../lib/sound';
 import { useMission } from '../focus/Mission';
 import { celebrate } from '../../lib/confetti';
+import { ListenButton, ListenToggle, useAutoRead } from '../audio/Listen';
+import { sentences, stop as stopSpeech } from '../../audio/speech';
 
 const SESSION = 10;
 const LESSON_CARDS = 8;
@@ -46,6 +48,11 @@ export function Flashcards({ subject, mode, topicId, onDone }: { subject: Subjec
   const [flipped, setFlipped] = useState(false);
   const [got, setGot] = useState(0);
   const [dir, setDir] = useState(0);
+  const card = deck[i] as Flashcard | undefined;
+  const face = flipped ? 'back' : 'front';
+  const faceText = card ? (flipped ? sentences([card.back]) : sentences([card.front])) : '';
+  // Listen mode: read the front when a card appears, then the back when she flips it.
+  useAutoRead(card ? `card:${card.id}:${i}:${face}` : 'card:none', faceText, !!card);
 
   const boxes = [1, 2, 3, 4, 5].map((b) => subject.flashcards.filter((c) => p.leitner[c.id]?.box === b).length);
   const unseen = subject.flashcards.filter((c) => !p.leitner[c.id]).length;
@@ -58,6 +65,7 @@ export function Flashcards({ subject, mode, topicId, onDone }: { subject: Subjec
     play(ok ? 'correct' : 'flip');
     if (ok) setGot((g) => g + 1);
     setDir(ok ? 1 : -1);
+    stopSpeech();
     setFlipped(false);
     setI(i + 1);
     if (i + 1 >= deck.length && !onDone) { finished(subject.id, ['flashcards', 'weak-cards']); celebrate(); }
@@ -71,6 +79,7 @@ export function Flashcards({ subject, mode, topicId, onDone }: { subject: Subjec
 
   return (
     <section className="stack">
+      {!topicId && <div className="row" style={{ justifyContent: 'flex-end' }}><ListenToggle /></div>}
       {!topicId && <div className="card flat row small" aria-label="Leitner boxes">
         <span className="muted">Boxes:</span>
         <span className="pill">New {unseen}</span>
@@ -119,6 +128,9 @@ export function Flashcards({ subject, mode, topicId, onDone }: { subject: Subjec
                 </motion.button>
               </motion.div>
             </AnimatePresence>
+          </div>
+          <div className="row" style={{ justifyContent: 'center' }}>
+            <ListenButton id={`card:${deck[i].id}:${i}:${face}`} text={faceText} label={flipped ? 'Listen to the back' : 'Listen to the front'} />
           </div>
           {flipped ? (
             <div className="row">

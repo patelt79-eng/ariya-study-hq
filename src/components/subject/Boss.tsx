@@ -9,6 +9,7 @@ import { celebrate } from '../../lib/confetti';
 import { play } from '../../lib/sound';
 import { go } from '../../lib/router';
 import { masteryFor } from '../../state/model';
+import { ListenToggle } from '../audio/Listen';
 
 const ROUNDS = 15;
 const HITS_TO_WIN = 10;
@@ -101,6 +102,7 @@ export function Boss({ subject }: { subject: SubjectContent }) {
         </div>
         <div className="row small" style={{ marginTop: 8, justifyContent: 'space-between' }}>
           <span>Question {i + 1} / {qs.length}</span>
+          <ListenToggle />
           <span style={{ color: left <= 10 ? 'var(--bad)' : undefined, fontWeight: 700 }}>⏱ {left}s</span>
         </div>
       </div>

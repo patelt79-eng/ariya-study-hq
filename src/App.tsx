@@ -10,6 +10,7 @@ import { Onboarding } from './components/onboarding/Onboarding';
 import { SUBJECTS } from './content';
 import type { SubjectId } from './content/types';
 import { unlockAudio } from './lib/sound';
+import { markGesture, stop as stopSpeech } from './audio/speech';
 
 // Screens other than Home load on demand, so the first screen appears faster.
 const SubjectPage = lazy(() => import('./components/subject/SubjectPage').then((m) => ({ default: m.SubjectPage })));
@@ -43,7 +44,11 @@ function Shell() {
     const on = () => { unlockAudio(); lastActive.current = Date.now(); };
     window.addEventListener('pointerdown', on, { passive: true });
     window.addEventListener('keydown', on);
-    return () => { window.removeEventListener('pointerdown', on); window.removeEventListener('keydown', on); };
+    // iPad Safari only lets speech start from a completed tap (touchend/click), not pointerdown.
+    // Capture phase, so it runs before React handles the tap (auto-read effects run straight after).
+    window.addEventListener('click', markGesture, true);
+    window.addEventListener('touchend', markGesture, true);
+    return () => { window.removeEventListener('pointerdown', on); window.removeEventListener('keydown', on); window.removeEventListener('click', markGesture, true); window.removeEventListener('touchend', markGesture, true); };
   }, []);
 
   // Count a revision minute when the app is visible and she has touched it in the last 2 minutes.
@@ -58,6 +63,9 @@ function Shell() {
   }, [onRevisionScreen, today, update]);
 
   const key = route.parts.slice(0, 2).join('/') || 'home';
+  // Moving to another screen always stops read-aloud.
+  const fullRoute = route.parts.join('/');
+  useEffect(() => { stopSpeech(); }, [fullRoute]);
   let screen: React.ReactNode;
   if (!p.onboarded) screen = <Onboarding />;
   else {

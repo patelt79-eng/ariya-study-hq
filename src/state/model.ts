@@ -36,6 +36,12 @@ export interface Progress {
   counters: Record<string, number>;
   celebrated80: SubjectId[];
   lessons: Record<string, LessonState>;
+  /** Listen mode: read lessons, flashcards and questions aloud automatically. */
+  listen: boolean;
+  /** Chosen reading voice; null = Automatic (best available). */
+  voiceURI: string | null;
+  /** 0.8 = Slow, 1 = Normal. */
+  speechRate: 0.8 | 1;
 }
 
 export function defaultProgress(): Progress {
@@ -44,6 +50,7 @@ export function defaultProgress(): Progress {
     parentPin: null, planStart: null, xp: 0, badges: {}, streak: { count: 0, best: 0, lastDay: null },
     minutesByDay: {}, leitner: {}, qstats: {}, quizScores: {}, rag: {}, missions: {}, missionsDone: {},
     paragraphs: [], counters: {}, celebrated80: [], lessons: {},
+    listen: false, voiceURI: null, speechRate: 1,
   };
 }
 
@@ -55,6 +62,11 @@ export function migrate(raw: unknown): Progress {
   const merged = { ...base, ...r, streak: { ...base.streak, ...(r.streak ?? {}) } } as Progress;
   if (!CLASSES.includes(merged.classId)) merged.classId = DEFAULT_CLASS;
   if (!['space', 'arcade', 'map'].includes(merged.theme)) merged.theme = 'space';
+  // Listen-mode settings were added later: repair anything missing or odd.
+  if (typeof merged.listen !== 'boolean') merged.listen = false;
+  if (typeof merged.voiceURI !== 'string' || !merged.voiceURI) merged.voiceURI = null;
+  if (merged.speechRate !== 0.8 && merged.speechRate !== 1) merged.speechRate = 1;
+  if (!merged.lessons || typeof merged.lessons !== 'object') merged.lessons = {};
   return merged;
 }
 

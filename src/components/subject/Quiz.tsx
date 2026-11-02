@@ -7,6 +7,7 @@ import { QuestionView } from '../quiz/QuestionView';
 import { celebrate } from '../../lib/confetti';
 import { useMission } from '../focus/Mission';
 import { extraQuestionsFor, topicExtras } from './registry';
+import { ListenToggle } from '../audio/Listen';
 import type { Progress } from '../../state/model';
 
 /** Pick questions: unseen and often-missed ones first, but always shuffled and mixed. */
@@ -79,7 +80,8 @@ export function Quiz({ subject, mode, topicId, count, onDone }: { subject: Subje
       )}
       {boost && <p className="pill" style={{ marginBottom: 12 }}>🚀 Final Boost: mixed questions from the whole subject, your weakest first</p>}
       <div className="row small muted" style={{ justifyContent: 'space-between', marginBottom: 6 }}>
-        <span>Question {i + 1} of {questions.length}</span><span>✓ {right}</span>
+        <span>Question {i + 1} of {questions.length}</span>
+        <span className="row" style={{ gap: 10 }}>{!lesson && <ListenToggle />}<span>✓ {right}</span></span>
       </div>
       <div className="bar" style={{ marginBottom: 16 }}><span style={{ width: `${(i / questions.length) * 100}%` }} /></div>
       <QuestionView key={q.id + i} q={q}

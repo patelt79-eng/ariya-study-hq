@@ -9,6 +9,8 @@ import { SubjectWorld } from './SubjectWorld';
 import { KIND_ICON, KIND_LABEL, useMission } from '../focus/Mission';
 import { go } from '../../lib/router';
 import { Page, TopBar } from '../shell/Shell';
+import { ListenButton } from '../audio/Listen';
+import { sentences } from '../../audio/speech';
 
 export function Home() {
   const { p } = useProgress();
@@ -142,11 +144,21 @@ function TodaysMission() {
   const t = THEMES[p.theme];
   const done = p.missionsDone[today] ?? [];
   const finished = todayPlan.tasks.length > 0 && todayPlan.tasks.every((x) => done.includes(x.id));
+  const missionText = sentences([
+    `${t.missionName}`,
+    todayPlan.type === 'done' ? 'No missions: every assessment is done. Enjoy the break!' : undefined,
+    todayPlan.type === 'boost' && todayPlan.boostFor ? `Final Boost day for ${SUBJECTS[todayPlan.boostFor].name}` : undefined,
+    todayPlan.type === 'exam' && todayPlan.examToday ? `Exam day: good luck in ${SUBJECTS[todayPlan.examToday].name}! It’s a lighter mission today` : undefined,
+    ...todayPlan.tasks.map((task, i) => `Task ${i + 1}: ${SUBJECTS[task.subject].name}, ${KIND_LABEL[task.kind]}, ${task.minutes} minutes${done.includes(task.id) ? ', done' : ''}`),
+  ]);
   return (
     <section className="card" style={{ marginBottom: 16 }} aria-labelledby="mission-h">
       <div className="row" style={{ justifyContent: 'space-between' }}>
         <h2 id="mission-h" style={{ margin: 0 }}>{t.missionName}</h2>
-        <button className="btn ghost small" onClick={() => go('plan')}>Full plan →</button>
+        <span className="row" style={{ gap: 6 }}>
+          <ListenButton id="home:mission" text={missionText} />
+          <button className="btn ghost small" onClick={() => go('plan')}>Full plan →</button>
+        </span>
       </div>
       {todayPlan.type === 'boost' && todayPlan.boostFor && (
         <p className="pill" style={{ marginTop: 10, borderColor: 'var(--warn)' }}>🚀 Final Boost day: {SUBJECTS[todayPlan.boostFor].name} is next!</p>

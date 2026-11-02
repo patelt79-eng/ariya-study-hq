@@ -46,3 +46,27 @@ export function Diagram({ name }: { name: string }) {
   const d = DIAGRAMS[name];
   return d ? <>{d()}</> : null;
 }
+
+/** Short spoken descriptions of each diagram, read after the card's text in Listen mode. */
+const DIAGRAM_TEXT: Record<string, string> = {
+  'angles-line': 'The picture shows a straight line with a line coming out of it. One angle is 130 degrees and the other is x. They add up to 180, so x is 50 degrees.',
+  'angles-triangle': 'The picture shows a triangle with angles of 60 degrees, 70 degrees and x. They add up to 180, so x is 50 degrees.',
+  'angles-quad': 'The picture shows a four-sided shape with angles of 80, 110 and 95 degrees, and x. They add up to 360, so x is 75 degrees.',
+  'bar-model': 'The picture shows a bar split into 8 equal boxes of 5 pounds each. 3 boxes, 15 pounds, are one colour, and 5 boxes, 25 pounds, are another. The whole bar is 40 pounds.',
+  'number-line': 'The picture shows a number line from minus 5 to 5. Numbers on the left are smaller; numbers on the right are bigger.',
+  'animal-cell': 'The picture shows an animal cell: a rounded shape with a cell membrane around the outside, cytoplasm inside, a nucleus in the middle, orange mitochondria and tiny dots for ribosomes.',
+  'plant-cell': 'The picture shows a plant cell: a box shape with a thick cell wall, a cell membrane, a large vacuole in the middle, a nucleus, green chloroplasts, a mitochondrion and ribosomes.',
+  particles: 'The picture shows three boxes of particles. In the solid, they are packed in neat rows. In the liquid, they are close together but jumbled. In the gas, they are far apart.',
+  'food-chain': 'The picture shows a food chain: grass, then an arrow to a rabbit, then an arrow to a fox. Grass is the producer, the rabbit is the primary consumer and the fox is the secondary consumer.',
+  atoms: 'The picture shows an element, where every atom is the same; a compound, where different atoms are joined in pairs; and a mixture, where different atoms are mixed but not joined.',
+  microscope: 'The picture shows a light microscope: the eyepiece lens at the top, the objective lens below it, the stage where the slide goes, a light at the bottom, and focus knobs on the side.',
+  'force-arrows': 'The picture shows a box with a 20 newton arrow pushing right and a 5 newton arrow pushing left. The resultant force is 15 newtons to the right.',
+  'world-map': 'The picture is a world map showing the seven continents: North America, South America, Europe, Africa, Asia, Oceania and Antarctica, with the Equator across the middle.',
+  'water-cycle': 'The picture shows the water cycle: the sun heats the sea, water evaporates and rises from the sea and the trees, clouds form, rain falls on a mountain, water runs off over the land, soaks into the soil and rock, and flows back to the sea.',
+  convection: 'The picture shows convection currents: heat from the core makes rock in the mantle rise, spread out under the plates, cool down and sink again, pulling the plates apart.',
+  boundaries: 'The picture shows three plate boundaries. Convergent: arrows pointing towards each other. Divergent: arrows pointing apart. Conservative: arrows sliding past each other.',
+};
+
+export function diagramText(name?: string): string {
+  return name ? DIAGRAM_TEXT[name] ?? '' : '';
+}
