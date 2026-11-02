@@ -84,6 +84,14 @@ describe('settings migration', () => {
     expect(p.voiceURI).toBeNull();
     expect(p.speechRate).toBe(1);
   });
+  it('moves the old Space / Arcade / Map looks to the pastel themes', () => {
+    expect(migrate({ theme: 'space' }).theme).toBe('blossom');
+    expect(migrate({ theme: 'arcade' }).theme).toBe('mint');
+    expect(migrate({ theme: 'map' }).theme).toBe('peach');
+    expect(migrate({ theme: 'mint' }).theme).toBe('mint');
+    expect(migrate({ theme: 'nonsense' }).theme).toBe('blossom');
+    expect(migrate({}).theme).toBe('blossom');
+  });
   it('keeps good values', () => {
     const p = migrate({ ...defaultProgress(), listen: true, voiceURI: 'com.apple.voice.premium.en-GB.Serena', speechRate: 0.8 });
     expect(p.listen).toBe(true);

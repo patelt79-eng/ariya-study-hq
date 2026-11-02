@@ -42,7 +42,7 @@ export function RewardLayer() {
           <motion.div key={f.id} className="xp-fly" aria-hidden
             initial={{ opacity: 0, y: 20, scale: 0.8 }} animate={{ opacity: 1, y: -30, scale: 1 }} exit={{ opacity: 0, y: -60 }}
             transition={{ duration: 0.6 }}>
-            +{f.amount} {theme.xpName === 'gold' ? '🪙' : 'XP'}
+            +{f.amount} XP
           </motion.div>
         ))}
       </AnimatePresence>
@@ -67,8 +67,8 @@ export function RewardLayer() {
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <motion.div className="card center stack" initial={{ scale: 0.4, rotate: -6 }} animate={{ scale: 1, rotate: 0 }} transition={{ type: 'spring', stiffness: 200, damping: 12 }}>
               <motion.h1 animate={{ scale: [1, 1.12, 1] }} transition={{ repeat: 2, duration: 0.6 }} style={{ color: 'var(--warn)' }}>{theme.levelUp}</motion.h1>
-              <div style={{ fontSize: 64 }} aria-hidden>{p.theme === 'space' ? '🚀' : p.theme === 'arcade' ? '🕹️' : '🗺️'}</div>
-              <h2>Level {level}: {rankFor(p.theme, level)}</h2>
+              <div style={{ fontSize: 64 }} aria-hidden>{theme.icon}</div>
+              <h2>Level {level}: {rankFor(level)}</h2>
               <p className="muted">Every card and question made you stronger. Keep going!</p>
               <button className="btn" onClick={() => setLevel(null)}>Awesome!</button>
             </motion.div>

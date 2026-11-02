@@ -6,12 +6,9 @@ import { THEMES } from '../../themes/themes';
 import { play } from '../../lib/sound';
 
 export function Backdrop() {
-  const { p } = useProgress();
   return (
     <div className="backdrop" aria-hidden>
-      {p.theme === 'space' && (<><div className="stars s1" /><div className="stars s2" /><div className="stars s3" /></>)}
-      {p.theme === 'arcade' && <div className="grid-floor" />}
-      {p.theme === 'map' && (<><div className="paper-grain" /><div className="compass" /></>)}
+      <div className="blob b1" /><div className="blob b2" /><div className="blob b3" />
     </div>
   );
 }
@@ -25,7 +22,7 @@ export function TopBar({ title, back }: { title: string; back?: string }) {
       {back !== undefined ? (
         <button className="icon-btn" onClick={() => go(back)} aria-label="Back">←</button>
       ) : (
-        <span aria-hidden style={{ fontSize: 26 }}>{p.theme === 'space' ? '🛰️' : p.theme === 'arcade' ? '👾' : '🧭'}</span>
+        <span aria-hidden style={{ fontSize: 26 }}>{t.icon}</span>
       )}
       <span className="title">{title}</span>
       <span className="spacer" />

@@ -87,7 +87,7 @@ export function ThemePicker() {
             onClick={() => { update((x) => ({ ...x, theme: id })); play('click'); }}
             className="card flat" style={{ cursor: 'pointer', textAlign: 'left', borderWidth: 3, borderColor: on ? 'var(--accent)' : 'var(--border)', padding: 0, overflow: 'hidden' }}>
             <div style={{ height: 80, background: t.preview, display: 'grid', placeItems: 'center', fontSize: 34 }} aria-hidden>
-              {id === 'space' ? '🪐' : id === 'arcade' ? '🕹️' : '🗺️'}
+              {t.icon}
             </div>
             <div style={{ padding: 12 }}>
               <strong>{t.name} {on && '✓'}</strong>

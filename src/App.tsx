@@ -38,7 +38,7 @@ function Shell() {
     el.dataset.theme = p.theme;
     el.dataset.calm = String(p.calm);
     const meta = document.querySelector('meta[name="theme-color"]');
-    meta?.setAttribute('content', getComputedStyle(el).getPropertyValue('--bg').trim() || '#0b1026');
+    meta?.setAttribute('content', getComputedStyle(el).getPropertyValue('--bg').trim() || '#fdf3f8');
   }, [p.theme, p.calm]);
 
   // iOS needs a tap before audio can play.
@@ -83,7 +83,6 @@ function Shell() {
   return (
     <MotionConfig reducedMotion={p.calm ? 'always' : 'user'}>
       <Backdrop />
-      {p.theme === 'arcade' && !p.calm && <div className="scanlines" aria-hidden />}
       <MissionProvider>
         <div className="app">
           <AnimatePresence mode="wait">

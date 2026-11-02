@@ -24,7 +24,6 @@ h1, h2, h3, .display {
 h1 { font-size: calc(2rem * var(--display-size)); }
 h2 { font-size: calc(1.5rem * var(--display-size)); }
 h3 { font-size: calc(1.2rem * var(--display-size)); }
-[data-theme='arcade'] h1, [data-theme='arcade'] h2, [data-theme='arcade'] h3 { text-shadow: 0 0 8px var(--accent-2); line-height: 1.5; }
 p { margin: 0 0 0.75em; }
 .muted { color: var(--muted); }
 .small { font-size: 0.9rem; }
@@ -61,16 +60,16 @@ p { margin: 0 0 0.75em; }
 button { font: inherit; color: inherit; }
 .btn {
   min-height: 48px; min-width: 48px; padding: 10px 20px; border-radius: calc(var(--radius) * 0.8);
-  border: 2px solid var(--accent); background: var(--accent); color: var(--accent-text);
+  border: 2px solid color-mix(in srgb, var(--accent) 45%, var(--btn-bg)); background: var(--btn-bg); color: var(--btn-text);
   font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   transition: transform 0.12s ease, box-shadow 0.2s ease; touch-action: manipulation; text-decoration: none; font-size: 1rem;
 }
 .btn:active { transform: scale(0.96); }
 .btn:hover { box-shadow: var(--glow); }
-.btn.secondary { background: transparent; color: var(--text); border-color: var(--border); }
+.btn.secondary { background: var(--surface-solid); color: var(--text); border-color: var(--border); }
 .btn.ghost { background: transparent; border-color: transparent; color: var(--text); }
-.btn.good { background: var(--good); border-color: var(--good); color: #062014; }
-.btn.bad { background: transparent; border-color: var(--bad); color: var(--text); }
+.btn.good { background: #c3ecd3; border-color: var(--good); color: #0d3b22; }
+.btn.bad { background: #ffe1e8; border-color: var(--bad); color: #5c0f22; }
 .btn.small { min-height: 44px; padding: 6px 14px; font-size: 0.95rem; }
 .btn.block { width: 100%; }
 .btn:disabled { opacity: 0.45; cursor: not-allowed; }
@@ -98,11 +97,11 @@ label { font-weight: 700; }
   flex: 0 0 auto; min-height: 44px; padding: 8px 16px; border-radius: 999px; border: 1px solid var(--border);
   background: var(--surface); cursor: pointer; font-weight: 700; color: var(--text); white-space: nowrap;
 }
-.tab[aria-selected='true'] { background: var(--accent); color: var(--accent-text); border-color: var(--accent); }
+.tab[aria-selected='true'] { background: var(--btn-bg); color: var(--btn-text); border-color: var(--accent); }
 
 /* ---------- progress bits ---------- */
 .bar { height: 14px; border-radius: 999px; background: var(--surface-2); overflow: hidden; border: 1px solid var(--border); }
-.bar > span { display: block; height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-2)); border-radius: 999px; transition: width 0.6s ease; }
+.bar > span { display: block; height: 100%; background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 70%, var(--btn-bg)), var(--accent-2)); border-radius: 999px; transition: width 0.6s ease; }
 
 /* ---------- feedback ---------- */
 .feedback { border-radius: var(--radius); padding: 14px 16px; margin-top: 14px; border: 2px solid; }

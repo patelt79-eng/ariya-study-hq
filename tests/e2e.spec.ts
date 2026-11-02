@@ -113,7 +113,7 @@ for (const s of SUBJECTS.filter((x) => x !== 'maths')) {
 test('theme switching', async ({ page }) => {
   await onboard(page);
   await page.goto('./#/settings');
-  for (const [name, id] of [['Neon Arcade', 'arcade'], ['Adventure Map', 'map'], ['Space Quest', 'space']]) {
+  for (const [name, id] of [['Mint', 'mint'], ['Peach', 'peach'], ['Blossom', 'blossom']]) {
     await page.getByRole('radio', { name: new RegExp(name) }).click();
     await expect(page.locator('html')).toHaveAttribute('data-theme', id);
     await page.goto('./#/');

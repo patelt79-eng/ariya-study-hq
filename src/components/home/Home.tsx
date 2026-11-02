@@ -14,7 +14,6 @@ import { sentences } from '../../audio/speech';
 
 export function Home() {
   const { p } = useProgress();
-  const t = THEMES[p.theme];
   return (
     <>
       <TopBar title={`${p.name}'s Study HQ`} />
@@ -25,7 +24,7 @@ export function Home() {
         <TodaysMission />
         <section style={{ margin: '28px 0' }} aria-labelledby="subjects-h">
           <h2 id="subjects-h">Your subjects</h2>
-          <p className="muted small">Tap a {t.subjectWord} to revise. The ring shows flashcards mastered plus your quiz average.</p>
+          <p className="muted small">Tap a subject to revise. The ring shows flashcards mastered plus your quiz average.</p>
           <SubjectWorld />
         </section>
         <BadgeShelf />
@@ -44,7 +43,7 @@ function Hero() {
       <div className="row" style={{ alignItems: 'flex-start' }}>
         <div style={{ flex: '1 1 260px' }}>
           <h1 style={{ marginBottom: 4 }}>Hi {p.name}!</h1>
-          <p className="muted" style={{ margin: 0 }}>{t.hqName} · {p.classId} · Level {lvl.level} {rankFor(p.theme, lvl.level)}</p>
+          <p className="muted" style={{ margin: 0 }}>{t.hqName} · {p.classId} · Level {lvl.level} {rankFor(lvl.level)}</p>
         </div>
         <div className="row">
           <motion.div className="pill" style={{ fontSize: '1.05rem', padding: '8px 14px' }} animate={p.streak.count ? { scale: [1, 1.08, 1] } : undefined} transition={{ repeat: Infinity, duration: 2.4 }}>
@@ -213,7 +212,7 @@ function BadgeShelf() {
         {BADGES.map((b) => {
           const got = !!p.badges[b.id];
           return (
-            <div key={b.id} className="center" title={b.desc} style={{ padding: 8, borderRadius: 12, background: 'var(--surface-2)', opacity: got ? 1 : 0.55 }}>
+            <div key={b.id} className="center" title={b.desc} style={{ padding: 8, borderRadius: 12, background: 'var(--surface-2)', opacity: got ? 1 : 0.8 }}>
               <div style={{ fontSize: 30, filter: got ? 'none' : 'grayscale(1)' }} aria-hidden>{got ? b.icon : '🔒'}</div>
               <div className="small" style={{ fontWeight: 700, lineHeight: 1.2 }}>{b.name}</div>
               <div className="sr-only">{got ? 'Unlocked' : 'Locked'}: {b.desc}</div>

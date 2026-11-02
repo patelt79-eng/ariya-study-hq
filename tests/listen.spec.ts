@@ -34,7 +34,7 @@ const spoken = (page: Page) => page.evaluate(() => (window as unknown as { __spo
 
 async function seed(page: Page, extra: Record<string, unknown> = {}) {
   await page.goto('./');
-  await page.evaluate((x) => localStorage.setItem('ariya-study-hq:v1', JSON.stringify({ v: 1, onboarded: true, name: 'Ariya', theme: 'space', ...x })), extra);
+  await page.evaluate((x) => localStorage.setItem('ariya-study-hq:v1', JSON.stringify({ v: 1, onboarded: true, name: 'Ariya', theme: 'blossom', ...x })), extra);
   await page.reload();
 }
 

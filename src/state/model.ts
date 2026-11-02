@@ -3,7 +3,7 @@ import { DEFAULT_CLASS, type ClassId, CLASSES } from '../content/timetable';
 import type { MissionTask } from './planner';
 import { addDays, diffDays } from '../lib/dates';
 
-export type ThemeId = 'space' | 'arcade' | 'map';
+export type ThemeId = 'blossom' | 'mint' | 'peach';
 export type Rag = 'R' | 'A' | 'G';
 
 export interface CardState { box: number; due: string; seen: number }
@@ -46,7 +46,7 @@ export interface Progress {
 
 export function defaultProgress(): Progress {
   return {
-    v: 1, onboarded: false, name: 'Ariya', classId: DEFAULT_CLASS, theme: 'space', calm: false, muted: false,
+    v: 1, onboarded: false, name: 'Ariya', classId: DEFAULT_CLASS, theme: 'blossom', calm: false, muted: false,
     parentPin: null, planStart: null, xp: 0, badges: {}, streak: { count: 0, best: 0, lastDay: null },
     minutesByDay: {}, leitner: {}, qstats: {}, quizScores: {}, rag: {}, missions: {}, missionsDone: {},
     paragraphs: [], counters: {}, celebrated80: [], lessons: {},
@@ -61,7 +61,10 @@ export function migrate(raw: unknown): Progress {
   const r = raw as Partial<Progress>;
   const merged = { ...base, ...r, streak: { ...base.streak, ...(r.streak ?? {}) } } as Progress;
   if (!CLASSES.includes(merged.classId)) merged.classId = DEFAULT_CLASS;
-  if (!['space', 'arcade', 'map'].includes(merged.theme)) merged.theme = 'space';
+  // The old Space / Arcade / Map looks were replaced by pastel themes (Nov 2026).
+  const OLD_THEMES: Record<string, ThemeId> = { space: 'blossom', arcade: 'mint', map: 'peach' };
+  if (OLD_THEMES[merged.theme as string]) merged.theme = OLD_THEMES[merged.theme as string];
+  if (!['blossom', 'mint', 'peach'].includes(merged.theme)) merged.theme = 'blossom';
   // Listen-mode settings were added later: repair anything missing or odd.
   if (typeof merged.listen !== 'boolean') merged.listen = false;
   if (typeof merged.voiceURI !== 'string' || !merged.voiceURI) merged.voiceURI = null;
@@ -86,14 +89,9 @@ export function levelFor(xp: number): { level: number; floor: number; next: numb
   return { level, floor: 60 * (level - 1) * level, next: 60 * level * (level + 1) };
 }
 
-const RANKS: Record<ThemeId, string[]> = {
-  space: ['Cadet', 'Cadet', 'Pilot', 'Pilot', 'Captain', 'Captain', 'Captain', 'Commander'],
-  arcade: ['Rookie', 'Rookie', 'Player', 'Player', 'Pro', 'Pro', 'Pro', 'Legend'],
-  map: ['Explorer', 'Explorer', 'Navigator', 'Navigator', 'Treasure Hunter', 'Treasure Hunter', 'Treasure Hunter', 'Legend'],
-};
-export function rankFor(theme: ThemeId, level: number): string {
-  const r = RANKS[theme];
-  return r[Math.min(level, r.length) - 1];
+const RANKS = ['Starter', 'Starter', 'Explorer', 'Explorer', 'Achiever', 'Achiever', 'Achiever', 'Champion'];
+export function rankFor(level: number): string {
+  return RANKS[Math.min(level, RANKS.length) - 1];
 }
 
 // ---------- mastery ----------

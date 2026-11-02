@@ -169,8 +169,8 @@ function Lesson({ subject, topic }: { subject: SubjectContent; topic: Topic }) {
                 <button onClick={() => toStep(s.id)} aria-current={current ? 'step' : undefined}
                   style={{ flex: 1, minHeight: 44, borderRadius: 999, cursor: 'pointer', fontWeight: 700, fontSize: '0.95rem', padding: '6px 8px',
                     border: `2px solid ${current ? 'var(--accent)' : 'var(--border)'}`,
-                    background: current ? 'var(--accent)' : s.done ? 'color-mix(in srgb, var(--good) 22%, var(--surface))' : 'var(--surface)',
-                    color: current ? 'var(--accent-text)' : 'var(--text)' }}>
+                    background: current ? 'var(--btn-bg)' : s.done ? 'color-mix(in srgb, var(--good) 22%, var(--surface))' : 'var(--surface)',
+                    color: current ? 'var(--btn-text)' : 'var(--text)' }}>
                   {s.done && !current ? '✓' : `${i + 1}.`} {s.icon} <span className="hide-phone">{s.label}</span>
                 </button>
                 {i < steps.length - 1 && <span aria-hidden className="muted">›</span>}
