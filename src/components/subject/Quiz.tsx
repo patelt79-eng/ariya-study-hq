@@ -6,13 +6,17 @@ import { shuffle } from '../../lib/random';
 import { QuestionView } from '../quiz/QuestionView';
 import { celebrate } from '../../lib/confetti';
 import { useMission } from '../focus/Mission';
-import { extraQuestionsFor } from './registry';
+import { extraQuestionsFor, topicExtras } from './registry';
 import type { Progress } from '../../state/model';
 
 /** Pick questions: unseen and often-missed ones first, but always shuffled and mixed. */
 export function buildRound(subject: SubjectContent, p: Progress, n: number, opts: { topicId?: string; weakFirst?: boolean } = {}): Question[] {
   let pool = [...subject.questions, ...extraQuestionsFor(subject.id)];
-  if (opts.topicId) pool = pool.filter((q) => q.topicId === opts.topicId);
+  if (opts.topicId) {
+    pool = pool.filter((q) => q.topicId === opts.topicId);
+    // Thin topics are topped up with generated questions (Maths) so a lesson quiz is never too short.
+    if (pool.length < n) pool = [...pool, ...topicExtras(subject.id, opts.topicId, n - pool.length)];
+  }
   const score = (q: Question) => {
     const s = p.qstats[q.id];
     if (!s) return 1 + Math.random();
@@ -24,14 +28,17 @@ export function buildRound(subject: SubjectContent, p: Progress, n: number, opts
   return shuffle(ranked.slice(0, Math.max(n, Math.min(pool.length, n * 2)))).slice(0, n);
 }
 
-export function Quiz({ subject, mode }: { subject: SubjectContent; mode?: string }) {
+/** With `topicId` + `onDone`, it runs as the last step of a lesson: a short quiz on just that topic. */
+export function Quiz({ subject, mode, topicId, count, onDone }: { subject: SubjectContent; mode?: string; topicId?: string; count?: number; onDone?: (pct: number) => void }) {
   const { p, answer, quizFinished } = useProgress();
   const { finished } = useMission();
   const boost = mode === 'boost';
-  const [topic, setTopic] = useState<string>('');
+  const lesson = !!topicId;
+  const [picked, setTopic] = useState<string>('');
+  const topic = topicId ?? picked;
   const [round, setRound] = useState(0);
   const questions = useMemo(
-    () => buildRound(subject, p, boost ? 15 : 10, { topicId: topic || undefined, weakFirst: boost }),
+    () => buildRound(subject, p, count ?? (boost ? 15 : 10), { topicId: topic || undefined, weakFirst: boost }),
     [subject, round, topic, boost], // eslint-disable-line react-hooks/exhaustive-deps
   );
   const [i, setI] = useState(0);
@@ -48,9 +55,11 @@ export function Quiz({ subject, mode }: { subject: SubjectContent; mode?: string
       <motion.section className="card center stack" initial={{ scale: 0.9 }} animate={{ scale: 1 }} style={{ alignItems: 'center' }}>
         <div style={{ fontSize: 60 }} aria-hidden>{pct === 100 ? '🏆' : pct >= 80 ? '🌟' : pct >= 50 ? '💪' : '🌱'}</div>
         <h2>{right} / {questions.length}</h2>
-        <p>{pct === 100 ? 'Perfect round!' : pct >= 80 ? 'Superb work!' : pct >= 50 ? 'Good effort. The ones you missed will come back so you can nail them.' : 'Every mistake is your brain learning. Try the Learn cards, then have another go.'}</p>
+        <p>{pct === 100 ? 'Perfect round!' : pct >= 80 ? 'Superb work!' : pct >= 50 ? 'Good effort. The ones you missed will come back so you can nail them.' : (lesson ? 'Every mistake is your brain learning. Look back at the learn card, then try again.' : 'Every mistake is your brain learning. Try a lesson on the topic, then have another go.')}</p>
         <div className="row" style={{ justifyContent: 'center' }}>
-          <button className="btn" onClick={restart}>Another round</button>
+          {lesson
+            ? <><button className="btn" onClick={() => onDone?.(pct)}>Finish topic ✓</button><button className="btn secondary" onClick={restart}>Try again</button></>
+            : <button className="btn" onClick={restart}>Another round</button>}
         </div>
       </motion.section>
     );
@@ -59,7 +68,7 @@ export function Quiz({ subject, mode }: { subject: SubjectContent; mode?: string
   const q = questions[i];
   return (
     <section className="card" data-testid="quiz">
-      {!boost && (
+      {!boost && !lesson && (
         <div className="row" style={{ marginBottom: 12 }}>
           <label htmlFor="topic" className="small">Topic</label>
           <select id="topic" value={topic} onChange={(e) => { setTopic(e.target.value); setI(0); setRight(0); }} style={{ flex: '1 1 200px', width: 'auto' }}>
@@ -82,7 +91,7 @@ export function Quiz({ subject, mode }: { subject: SubjectContent; mode?: string
             setDone(true);
             quizFinished(subject.id, pct);
             if (pct >= 80) celebrate(pct === 100);
-            finished(subject.id, ['quiz', 'boost-quiz']);
+            if (!lesson) finished(subject.id, ['quiz', 'boost-quiz']);
           }
         }} />
     </section>

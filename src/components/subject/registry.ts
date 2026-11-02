@@ -26,3 +26,11 @@ export function extraQuestionsFor(subject: SubjectId): Question[] {
   if (subject === 'maths') return SKILLS.map((s) => genToQuestion(s.make()));
   return [];
 }
+
+/** Generated questions for one topic (Maths only), used to top up short lesson quizzes. */
+export function topicExtras(subject: SubjectId, topicId: string, n: number): Question[] {
+  if (subject !== 'maths') return [];
+  const skills = SKILLS.filter((s) => s.topicId === topicId);
+  if (!skills.length) return [];
+  return Array.from({ length: n }, (_, i) => genToQuestion(skills[i % skills.length].make()));
+}

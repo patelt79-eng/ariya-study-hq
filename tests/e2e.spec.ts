@@ -134,3 +134,42 @@ test('works offline after the first load', async ({ page, context }) => {
   await expect(page.getByText(/Card 1 of/)).toBeVisible();
   await context.setOffline(false);
 });
+
+/** Work through one whole lesson: learn card(s) → flashcards → 5-question quiz. */
+for (const s of SUBJECTS) {
+  test(`a ${s} lesson runs learn → flashcards → quiz`, async ({ page }) => {
+    await onboard(page);
+    await page.goto(`./#/subject/${s}/learn`);
+    await page.getByRole('button', { name: /^(Start|Continue):/ }).click();
+    await expect(page.getByRole('button', { name: '← All topics' })).toBeVisible();
+    // Learn step: one card at a time.
+    for (let i = 0; i < 8; i++) {
+      const btn = page.getByRole('button', { name: /^(Next card →|Next: (flashcards|quick quiz) →)$/ });
+      await btn.waitFor();
+      const label = (await btn.textContent()) ?? '';
+      await btn.click();
+      if (!label.startsWith('Next card')) break;
+      await page.waitForTimeout(350); // let the card slide out
+    }
+    // Flashcards step (if the topic has any). Wait for the step to slide in first.
+    await page.getByText(/^(Card 1 of \d+|Question 1 of \d+)$/).first().waitFor();
+    if (await page.getByText(/^Card 1 of \d+$/).isVisible().catch(() => false)) {
+      for (let i = 0; i < 8; i++) {
+        if (await page.getByRole('button', { name: 'Next: quick quiz →' }).isVisible().catch(() => false)) break;
+        await page.getByRole('button', { name: /Tap to flip/ }).click();
+        await page.getByRole('button', { name: '✓ Got it' }).click();
+      }
+      await page.getByRole('button', { name: 'Next: quick quiz →' }).click();
+    }
+    // Quiz step: 5 questions max.
+    for (let i = 0; i < 5; i++) {
+      if (await page.getByRole('button', { name: 'Finish topic ✓' }).isVisible().catch(() => false)) break;
+      await answerOne(page);
+    }
+    await page.getByRole('button', { name: 'Finish topic ✓' }).click();
+    await expect(page.getByRole('heading', { name: 'Topic complete!' })).toBeVisible();
+    await page.getByRole('button', { name: 'Back to all topics' }).click();
+    await expect(page.getByText(/^1 of \d+ topics done$/)).toBeVisible();
+    await noSideScroll(page, `${s} lessons`);
+  });
+}

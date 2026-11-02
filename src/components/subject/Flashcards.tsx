@@ -8,9 +8,11 @@ import { play } from '../../lib/sound';
 import { useMission } from '../focus/Mission';
 import { celebrate } from '../../lib/confetti';
 
-const SESSION = 15;
+const SESSION = 10;
+const LESSON_CARDS = 8;
 
-export function Flashcards({ subject, mode }: { subject: SubjectContent; mode?: string }) {
+/** With `topicId` + `onDone`, it runs as one step of a lesson: just that topic's cards, once through. */
+export function Flashcards({ subject, mode, topicId, onDone }: { subject: SubjectContent; mode?: string; topicId?: string; onDone?: () => void }) {
   const { p, today, review } = useProgress();
   const { finished } = useMission();
   const weak = mode === 'weak';
@@ -18,6 +20,7 @@ export function Flashcards({ subject, mode }: { subject: SubjectContent; mode?: 
   const [onlyBonus, setOnlyBonus] = useState(false);
 
   const deck = useMemo<Flashcard[]>(() => {
+    if (topicId) return shuffle(subject.flashcards.filter((c) => c.topicId === topicId)).slice(0, LESSON_CARDS);
     const cards = subject.flashcards.filter((c) => !onlyBonus || c.bonus);
     if (weak) {
       const missedTopics = new Set(Object.entries(p.qstats).filter(([, s]) => s.subject === subject.id && s.lastWrong).map(([id]) =>
@@ -37,7 +40,7 @@ export function Flashcards({ subject, mode }: { subject: SubjectContent; mode?: 
     const fresh = shuffle(cards.filter((c) => !p.leitner[c.id]));
     const out = [...due, ...fresh].slice(0, SESSION);
     return out.length ? shuffle(out) : shuffle(cards).slice(0, SESSION);
-  }, [subject, round, weak, onlyBonus]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [subject, round, weak, onlyBonus, topicId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const [i, setI] = useState(0);
   const [flipped, setFlipped] = useState(false);
@@ -57,7 +60,7 @@ export function Flashcards({ subject, mode }: { subject: SubjectContent; mode?: 
     setDir(ok ? 1 : -1);
     setFlipped(false);
     setI(i + 1);
-    if (i + 1 >= deck.length) { finished(subject.id, ['flashcards', 'weak-cards']); celebrate(); }
+    if (i + 1 >= deck.length && !onDone) { finished(subject.id, ['flashcards', 'weak-cards']); celebrate(); }
   };
 
   const onDragEnd = (_: unknown, info: PanInfo) => {
@@ -68,7 +71,7 @@ export function Flashcards({ subject, mode }: { subject: SubjectContent; mode?: 
 
   return (
     <section className="stack">
-      <div className="card flat row small" aria-label="Leitner boxes">
+      {!topicId && <div className="card flat row small" aria-label="Leitner boxes">
         <span className="muted">Boxes:</span>
         <span className="pill">New {unseen}</span>
         {boxes.map((n, b) => <span key={b} className="pill" title={`Box ${b + 1}`}>{['①', '②', '③', '④', '⑤'][b]} {n}</span>)}
@@ -76,21 +79,23 @@ export function Flashcards({ subject, mode }: { subject: SubjectContent; mode?: 
         {subject.flashcards.some((c) => c.bonus) && (
           <button className="btn ghost small" onClick={() => { setOnlyBonus((x) => !x); setI(0); setGot(0); }}>{onlyBonus ? 'All cards' : 'Bonus only'}</button>
         )}
-      </div>
+      </div>}
       {weak && <p className="pill">🎯 Your weakest cards: low boxes, red topics and questions you missed</p>}
 
       {i >= deck.length ? (
         <motion.div className="card center stack" style={{ alignItems: 'center' }} initial={{ scale: 0.9 }} animate={{ scale: 1 }}>
           <div style={{ fontSize: 56 }} aria-hidden>🃏</div>
-          <h2>Deck done!</h2>
+          <h2>{onDone ? 'Flashcards done!' : 'Deck done!'}</h2>
           <p>You knew {got} of {deck.length}. Cards you didn’t know will come back sooner.</p>
-          <button className="btn" onClick={() => { setRound((r) => r + 1); setI(0); setGot(0); }}>Another deck</button>
+          {onDone
+            ? <button className="btn" onClick={onDone}>Next: quick quiz →</button>
+            : <button className="btn" onClick={() => { setRound((r) => r + 1); setI(0); setGot(0); }}>Another deck</button>}
         </motion.div>
       ) : (
         <>
           <div className="row small muted" style={{ justifyContent: 'space-between' }}>
             <span>Card {i + 1} of {deck.length}</span>
-            <span>Box {p.leitner[deck[i].id]?.box ?? 'new'}</span>
+            {!topicId && <span>Box {p.leitner[deck[i].id]?.box ?? 'new'}</span>}
           </div>
           <div style={{ perspective: 1200, minHeight: 280, position: 'relative' }}>
             <AnimatePresence mode="popLayout" custom={dir}>

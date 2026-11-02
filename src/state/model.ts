@@ -8,6 +8,8 @@ export type Rag = 'R' | 'A' | 'G';
 
 export interface CardState { box: number; due: string; seen: number }
 export interface QStat { r: number; w: number; lastWrong?: string; subject: SubjectId; prompt: string }
+/** Per-topic lesson progress: each lesson is Learn → Flashcards → Quiz. */
+export interface LessonState { learn?: boolean; cards?: boolean; quiz?: number }
 export interface SavedParagraph { id: string; subject: SubjectId; title: string; text: string; date: string }
 
 export interface Progress {
@@ -33,6 +35,7 @@ export interface Progress {
   paragraphs: SavedParagraph[];
   counters: Record<string, number>;
   celebrated80: SubjectId[];
+  lessons: Record<string, LessonState>;
 }
 
 export function defaultProgress(): Progress {
@@ -40,7 +43,7 @@ export function defaultProgress(): Progress {
     v: 1, onboarded: false, name: 'Ariya', classId: DEFAULT_CLASS, theme: 'space', calm: false, muted: false,
     parentPin: null, planStart: null, xp: 0, badges: {}, streak: { count: 0, best: 0, lastDay: null },
     minutesByDay: {}, leitner: {}, qstats: {}, quizScores: {}, rag: {}, missions: {}, missionsDone: {},
-    paragraphs: [], counters: {}, celebrated80: [],
+    paragraphs: [], counters: {}, celebrated80: [], lessons: {},
   };
 }
 

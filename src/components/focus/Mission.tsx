@@ -9,7 +9,7 @@ import { play } from '../../lib/sound';
 import type { SubjectId } from '../../content/types';
 
 export const KIND_LABEL: Record<TaskKind, string> = {
-  learn: 'Learn cards', flashcards: 'Flashcards', quiz: 'Quiz round', practise: 'Practise tools',
+  learn: 'Lesson (learn, flashcards, quiz)', flashcards: 'Flashcards', quiz: 'Quiz round', practise: 'Practise tools',
   'boost-quiz': 'Final Boost quiz', 'weak-cards': 'Weakest cards review',
 };
 export const KIND_ICON: Record<TaskKind, string> = {

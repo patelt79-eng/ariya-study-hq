@@ -12,14 +12,13 @@ import { Page, TopBar, MasteryRing } from '../shell/Shell';
 import { Flashcards } from './Flashcards';
 import { Quiz } from './Quiz';
 import { Boss, bossUnlocked } from './Boss';
-import { Diagram } from './Diagrams';
+import { Lessons } from './Lessons';
 import { PRACTISE } from './registry';
-import { useMission } from '../focus/Mission';
 import { play } from '../../lib/sound';
 
 const TABS = [
   { id: 'test', label: '📋 What’s on the test' },
-  { id: 'learn', label: '📘 Learn' },
+  { id: 'learn', label: '📘 Lessons' },
   { id: 'cards', label: '🃏 Flashcards' },
   { id: 'quiz', label: '❓ Quiz' },
   { id: 'practise', label: '🛠️ Practise' },
@@ -64,7 +63,7 @@ export function SubjectPage({ id, tab = 'test', tool, mode }: { id: SubjectId; t
         <AnimatePresence mode="wait">
           <motion.div key={tab + (tool ?? '') + (mode ?? '')} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.2 }}>
             {tab === 'test' && <TestTab subject={subject} />}
-            {tab === 'learn' && <LearnTab subject={subject} />}
+            {tab === 'learn' && <Lessons subject={subject} topicId={tool} />}
             {tab === 'cards' && <Flashcards subject={subject} mode={mode} />}
             {tab === 'quiz' && <Quiz subject={subject} mode={mode} />}
             {tab === 'practise' && <PractiseTab subject={subject} tool={tool} />}
@@ -135,36 +134,6 @@ function FragmentRows({ group, children }: { group: string; children: React.Reac
       {group && <tr><th colSpan={2} style={{ paddingTop: 18, fontSize: '1rem', color: 'var(--accent)' }}>{group}</th></tr>}
       {children}
     </>
-  );
-}
-
-function LearnTab({ subject }: { subject: SubjectContent }) {
-  const { award, p } = useProgress();
-  const { finished } = useMission();
-  if (!subject.learn.length) return <p className="muted">Learn cards for this subject are coming soon.</p>;
-  return (
-    <div className="stack">
-      <p className="muted small" style={{ margin: 0 }}>Read a card, then cover it and try to say the key points out loud. That’s active recall!</p>
-      <div className="grid">
-        {subject.learn.map((c, i) => {
-          const t = subject.topics.find((x) => x.id === c.topicId);
-          const rag = p.rag[c.topicId];
-          return (
-            <motion.article key={i} className="card" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: Math.min(i, 8) * 0.03 }}
-              style={{ borderLeft: `6px solid ${rag === 'R' ? 'var(--rag-r)' : rag === 'A' ? 'var(--rag-a)' : rag === 'G' ? 'var(--rag-g)' : subject.colour}` }}>
-              {t?.group && <div className="small muted">{t.group}</div>}
-              <h3>{c.title}</h3>
-              {c.diagram && <Diagram name={c.diagram} />}
-              <ul style={{ margin: 0, paddingLeft: 20 }}>{c.points.map((pt, k) => <li key={k} style={{ marginBottom: 4 }}>{pt}</li>)}</ul>
-              {c.tip && <p className="small" style={{ marginTop: 10, marginBottom: 0 }}>💡 <strong>{c.tip}</strong></p>}
-            </motion.article>
-          );
-        })}
-      </div>
-      <button className="btn" onClick={() => { award(10, 'Reading done'); finished(subject.id, ['learn']); go(`subject/${subject.id}/cards`); }}>
-        ✓ I’ve read these. Test me with flashcards
-      </button>
-    </div>
   );
 }
 
