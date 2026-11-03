@@ -38,7 +38,7 @@ const MINUTES: Record<TaskKind, number> = {
 /** How many days before an exam a Final Boost may move to, if the day before is taken. */
 const BOOST_WINDOW = 3;
 /** Larger = flatter spread across subjects; smaller = more focus on the next exam. */
-const URGENCY_SOFTENING = 6;
+const URGENCY_SOFTENING = 12;
 
 /**
  * Work out each subject's Final Boost day.

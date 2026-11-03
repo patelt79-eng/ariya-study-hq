@@ -1,5 +1,5 @@
 import type { SubjectContent, SubjectId } from '../content/types';
-import { DEFAULT_CLASS, type ClassId, CLASSES } from '../content/timetable';
+import { DEFAULT_CLASS, PLAN_START, type ClassId, CLASSES } from '../content/timetable';
 import type { MissionTask } from './planner';
 import { addDays, diffDays } from '../lib/dates';
 
@@ -70,6 +70,15 @@ export function migrate(raw: unknown): Progress {
   if (typeof merged.voiceURI !== 'string' || !merged.voiceURI) merged.voiceURI = null;
   if (merged.speechRate !== 0.8 && merged.speechRate !== 1) merged.speechRate = 1;
   if (!merged.lessons || typeof merged.lessons !== 'object') merged.lessons = {};
+  // The plan always starts on PLAN_START. If it was saved with another start (e.g. the day the app
+  // was first opened), drop any planned days from PLAN_START onwards that have no finished tasks,
+  // so they are re-planned from Day 1. Finished work is never removed.
+  if (merged.planStart !== PLAN_START) {
+    const missions = { ...(merged.missions ?? {}) };
+    for (const d of Object.keys(missions)) if (d >= PLAN_START && !(merged.missionsDone?.[d]?.length)) delete missions[d];
+    merged.missions = missions;
+    merged.planStart = PLAN_START;
+  }
   return merged;
 }
 

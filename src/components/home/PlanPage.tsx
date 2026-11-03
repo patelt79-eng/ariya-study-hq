@@ -1,6 +1,6 @@
 import { useProgress } from '../../state/progress';
 import { planUntil } from '../../state/planner';
-import { examsFor } from '../../content/timetable';
+import { examsFor, PLAN_START } from '../../content/timetable';
 import { SUBJECTS, SUBJECT_LIST } from '../../content';
 import { weaknessFor } from '../../state/model';
 import { addDays, longDay } from '../../lib/dates';
@@ -12,7 +12,7 @@ export function PlanPage() {
   const exams = examsFor(p.classId);
   const last = exams[exams.length - 1]?.date ?? today;
   const weakness = Object.fromEntries(SUBJECT_LIST.map((s) => [s.id, weaknessFor(s, p, today)]));
-  const days = planUntil({ exams, start: p.planStart ?? today, weakness }, last).filter((d) => d.date >= addDays(today, -1));
+  const days = planUntil({ exams, start: PLAN_START, weakness }, last).filter((d) => d.date >= addDays(today, -1));
   return (
     <>
       <TopBar title="Revision plan" back="" />

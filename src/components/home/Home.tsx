@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { useProgress } from '../../state/progress';
 import { BADGES, levelFor, masteryFor, rankFor } from '../../state/model';
 import { THEMES } from '../../themes/themes';
-import { examsFor, missingSubjects } from '../../content/timetable';
+import { examsFor, missingSubjects, PLAN_START } from '../../content/timetable';
 import { SUBJECTS } from '../../content';
 import { daysToGoLabel, diffDays, longDay, shortDate } from '../../lib/dates';
 import { SubjectWorld } from './SubjectWorld';
@@ -143,8 +143,14 @@ function TodaysMission() {
   const t = THEMES[p.theme];
   const done = p.missionsDone[today] ?? [];
   const finished = todayPlan.tasks.length > 0 && todayPlan.tasks.every((x) => done.includes(x.id));
+  // "Day 3 of 23": counts from the plan's Day 1 to the last assessment.
+  const exams = examsFor(p.classId);
+  const totalDays = exams.length ? diffDays(PLAN_START, exams[exams.length - 1].date) + 1 : 0;
+  const dayNum = diffDays(PLAN_START, today) + 1;
+  const showDay = dayNum >= 1 && dayNum <= totalDays;
   const missionText = sentences([
     `${t.missionName}`,
+    showDay ? `Day ${dayNum} of ${totalDays}` : undefined,
     todayPlan.type === 'done' ? 'No missions: every assessment is done. Enjoy the break!' : undefined,
     todayPlan.type === 'boost' && todayPlan.boostFor ? `Final Boost day for ${SUBJECTS[todayPlan.boostFor].name}` : undefined,
     todayPlan.type === 'exam' && todayPlan.examToday ? `Exam day: good luck in ${SUBJECTS[todayPlan.examToday].name}! It’s a lighter mission today` : undefined,
@@ -153,7 +159,7 @@ function TodaysMission() {
   return (
     <section className="card" style={{ marginBottom: 16 }} aria-labelledby="mission-h">
       <div className="row" style={{ justifyContent: 'space-between' }}>
-        <h2 id="mission-h" style={{ margin: 0 }}>{t.missionName}</h2>
+        <h2 id="mission-h" style={{ margin: 0 }}>{t.missionName} {showDay && <span className="pill" style={{ fontFamily: 'var(--font-body)', fontSize: '0.9rem', verticalAlign: 'middle' }}>Day {dayNum} of {totalDays}</span>}</h2>
         <span className="row" style={{ gap: 6 }}>
           <ListenButton id="home:mission" text={missionText} />
           <button className="btn ghost small" onClick={() => go('plan')}>Full plan →</button>

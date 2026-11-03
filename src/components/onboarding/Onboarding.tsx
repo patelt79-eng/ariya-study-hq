@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useProgress } from '../../state/progress';
-import { CLASSES, examsFor, type ClassId } from '../../content/timetable';
+import { CLASSES, PLAN_START, examsFor, type ClassId } from '../../content/timetable';
 import { SUBJECTS } from '../../content';
 import { shortDate } from '../../lib/dates';
 import { THEMES } from '../../themes/themes';
@@ -10,13 +10,13 @@ import { celebrate } from '../../lib/confetti';
 import { play, unlockAudio } from '../../lib/sound';
 
 export function Onboarding() {
-  const { p, update, today } = useProgress();
+  const { p, update } = useProgress();
   const [step, setStep] = useState(0);
   const [name, setName] = useState(p.name);
   const [cls, setCls] = useState<ClassId>(p.classId);
 
   const finish = () => {
-    update((x) => ({ ...x, onboarded: true, name: name.trim() || 'Ariya', classId: cls, planStart: x.planStart ?? today }));
+    update((x) => ({ ...x, onboarded: true, name: name.trim() || 'Ariya', classId: cls, planStart: PLAN_START }));
     celebrate(true);
     play('levelup');
   };

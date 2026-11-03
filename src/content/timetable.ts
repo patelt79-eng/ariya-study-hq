@@ -6,6 +6,9 @@ export const CLASSES = ['7A1', '7A2', '7A3', '7A4', '7A5', '7B1', '7B2', '7B3', 
 export type ClassId = (typeof CLASSES)[number];
 export const DEFAULT_CLASS: ClassId = '7A3';
 
+/** Day 1 of the daily revision plan. Change this date to restart the plan from a different day. */
+export const PLAN_START = '2026-11-03';
+
 export const EXAM_DATES = [
   '2026-11-16', '2026-11-17', '2026-11-18', '2026-11-19', '2026-11-20',
   '2026-11-23', '2026-11-24', '2026-11-25',

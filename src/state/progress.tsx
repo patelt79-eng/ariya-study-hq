@@ -6,7 +6,7 @@ import {
 import { todayISO } from '../lib/dates';
 import type { Question, SubjectId } from '../content/types';
 import { SUBJECTS, SUBJECT_LIST } from '../content';
-import { examsFor } from '../content/timetable';
+import { examsFor, PLAN_START } from '../content/timetable';
 import { planFor, type DayPlan } from './planner';
 import { play, setMuted } from '../lib/sound';
 import { setCalmConfetti } from '../lib/confetti';
@@ -135,16 +135,16 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
   // Today's mission is frozen the first time it is shown, so it doesn't shift during the day.
   const todayPlan = useMemo<DayPlan>(() => {
     const weakness = Object.fromEntries(SUBJECT_LIST.map((s) => [s.id, weaknessFor(s, p, today)]));
-    const plan = planFor({ exams: examsFor(p.classId), start: p.planStart ?? today, weakness }, today);
+    const plan = planFor({ exams: examsFor(p.classId), start: PLAN_START, weakness }, today);
     const frozen = p.missions[today];
     return frozen ? { ...plan, tasks: frozen } : plan;
     // Recompute only when the inputs that matter change, not on every XP tick.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [p.classId, p.planStart, p.missions[today], today]);
+  }, [p.classId, p.missions[today], today]);
 
   useEffect(() => {
     if (!p.onboarded || p.missions[today]) return;
-    update((cur) => ({ ...cur, planStart: cur.planStart ?? today, missions: { ...cur.missions, [today]: todayPlan.tasks } }));
+    update((cur) => ({ ...cur, planStart: PLAN_START, missions: { ...cur.missions, [today]: todayPlan.tasks } }));
   }, [p.onboarded, p.missions, today, todayPlan.tasks, update]);
 
   const completeTask = useCallback((taskId: string) => {

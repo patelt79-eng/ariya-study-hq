@@ -92,6 +92,14 @@ describe('settings migration', () => {
     expect(migrate({ theme: 'nonsense' }).theme).toBe('blossom');
     expect(migrate({}).theme).toBe('blossom');
   });
+  it('restarts the plan from Day 1 but keeps finished work', () => {
+    const p = migrate({ planStart: '2026-10-31', missions: { '2026-11-01': [], '2026-11-03': [{ id: 'a', subject: 'maths', kind: 'quiz', minutes: 20 }], '2026-11-04': [] },
+      missionsDone: { '2026-11-04': ['x'] } });
+    expect(p.planStart).toBe('2026-11-03');
+    expect(p.missions['2026-11-01']).toBeDefined(); // before Day 1: left alone
+    expect(p.missions['2026-11-03']).toBeUndefined(); // re-planned from Day 1
+    expect(p.missions['2026-11-04']).toBeDefined(); // has finished work: kept
+  });
   it('keeps good values', () => {
     const p = migrate({ ...defaultProgress(), listen: true, voiceURI: 'com.apple.voice.premium.en-GB.Serena', speechRate: 0.8 });
     expect(p.listen).toBe(true);

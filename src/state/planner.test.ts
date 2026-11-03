@@ -3,7 +3,7 @@ import { boostDays, planUntil } from './planner';
 import { CLASSES, examsFor } from '../content/timetable';
 import type { SubjectId } from '../content/types';
 
-const START = '2026-10-31';
+const START = '2026-11-03';
 
 describe('planner for 7A3', () => {
   const exams = examsFor('7A3');
