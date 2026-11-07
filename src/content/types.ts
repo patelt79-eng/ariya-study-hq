@@ -42,6 +42,8 @@ interface QBase {
   figure?: unknown;
   /** Optional worked solution steps. */
   steps?: string[];
+  /** Extra help, hidden until "Show hint" is tapped. Added from content/hints. */
+  hint?: string;
 }
 export interface MCQ extends QBase { kind: 'mcq'; options: string[]; answer: number }
 export interface TrueFalse extends QBase { kind: 'tf'; answer: boolean }

@@ -19,8 +19,10 @@ export function QuestionView({ q, onAnswered, onNext, disabled }: {
   disabled?: boolean;
 }) {
   const [result, setResult] = useState<Answered | null>(null);
+  // The hint starts hidden for every question. Using it does not change the score.
+  const [hintShown, setHintShown] = useState(false);
   const controls = useAnimationControls();
-  useEffect(() => { setResult(null); }, [q.id]);
+  useEffect(() => { setResult(null); setHintShown(false); }, [q.id]);
   // MCQ option order is decided here so the read-aloud letters match the screen.
   const order = useMemo(() => (q.kind === 'mcq' ? shuffle(q.options.map((_, i) => i)) : []), [q.id]); // eslint-disable-line react-hooks/exhaustive-deps
   const praise = useMemo(() => pickPraise(), [q.id, result?.correct]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -60,6 +62,20 @@ export function QuestionView({ q, onAnswered, onNext, disabled }: {
         <ListenButton id={`q:${q.id}:question`} text={questionText} />
       </div>
       {q.figure ? <AngleDiagram spec={q.figure as AngleSpec} /> : null}
+      {q.hint && (
+        <div className="hint-area">
+          <button type="button" className="btn ghost small" aria-expanded={hintShown} aria-controls={`hint-${q.id}`}
+            onClick={() => setHintShown((v) => !v)}>
+            💡 {hintShown ? 'Hide hint' : 'Show hint'}
+          </button>
+          <div id={`hint-${q.id}`} className="hint-box" hidden={!hintShown}>
+            <div className="row" style={{ justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'nowrap' }}>
+              <span><strong>Hint:</strong> {q.hint}</span>
+              <ListenButton id={`q:${q.id}:hint`} text={`Hint. ${q.hint}`} />
+            </div>
+          </div>
+        </div>
+      )}
       {q.kind === 'mcq' && <MCQView q={q} order={order} locked={locked} result={result} onPick={(i) => submit({ correct: i === q.answer, given: q.options[i] })} />}
       {q.kind === 'tf' && <TFView answer={q.answer} locked={locked} result={result} onPick={(v) => submit({ correct: v === q.answer, given: v ? 'True' : 'False' })} />}
       {q.kind === 'type' && <TypeView key={q.id} q={q} locked={locked} onSubmit={(s) => submit({ correct: isAcceptable(s, q.accept, q.numeric), given: s })} />}

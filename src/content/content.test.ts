@@ -3,6 +3,7 @@ import { SUBJECT_LIST } from './index';
 import { EXTRACTS } from './english.extras';
 import { isAcceptable } from '../lib/fuzzy';
 import { SKILLS } from '../components/practise/maths/generators';
+import { SKILL_HINTS } from './hints';
 
 describe.each(SUBJECT_LIST.map((s) => [s.id, s] as const))('%s content', (_, s) => {
   it('has at least 40 flashcards and 80 questions', () => {
@@ -26,6 +27,34 @@ describe.each(SUBJECT_LIST.map((s) => [s.id, s] as const))('%s content', (_, s) 
       if (q.kind === 'type') expect(isAcceptable(q.accept[0], q.accept, q.numeric), q.prompt).toBe(true);
       if (q.kind === 'match') expect(new Set(q.pairs.map((p) => p[1])).size, q.prompt).toBe(q.pairs.length);
     }
+  });
+});
+
+describe.each(SUBJECT_LIST.map((s) => [s.id, s] as const))('%s quiz hints', (_, s) => {
+  it('every question has a hint', () => {
+    const missing = s.questions.filter((q) => !q.hint).map((q) => `${q.id}: ${q.prompt}`);
+    expect(missing).toEqual([]);
+  });
+  it('no hint gives away its answer', () => {
+    const esc = (t: string) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const leaks: string[] = [];
+    for (const q of s.questions) {
+      if (!q.hint) continue;
+      const answers = q.kind === 'mcq' ? [q.options[q.answer]] : q.kind === 'type' ? q.accept : [];
+      for (const a of answers) {
+        const ans = a.trim().toLowerCase();
+        if (ans.length < 1) continue;
+        // Whole-word match, so "3" is not found inside "30".
+        if (new RegExp(`(^|[^\\p{L}\\p{N}])${esc(ans)}($|[^\\p{L}\\p{N}])`, 'iu').test(q.hint)) leaks.push(`${q.id}: "${q.hint}" contains "${a}"`);
+      }
+    }
+    expect(leaks).toEqual([]);
+  });
+});
+
+describe('maths generator hints', () => {
+  it('every generated skill has a hint', () => {
+    expect(SKILLS.filter((k) => !SKILL_HINTS[k.id]).map((k) => k.id)).toEqual([]);
   });
 });
 

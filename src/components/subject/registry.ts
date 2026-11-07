@@ -2,6 +2,7 @@
 import { lazy, type ComponentType, type LazyExoticComponent } from 'react';
 import type { Question, SubjectId } from '../../content/types';
 import { SKILLS, type GenQ } from '../practise/maths/generators';
+import { SKILL_HINTS } from '../../content/hints';
 
 type Practise = LazyExoticComponent<ComponentType<{ tool?: string }>>;
 
@@ -18,6 +19,7 @@ export function genToQuestion(g: GenQ): Question {
   return {
     kind: 'type', id: `mgen-${g.skill}`, topicId: g.topicId, prompt: g.prompt, accept: [g.answer, ...(g.accept ?? [])],
     numeric: g.numeric, explain: g.steps[g.steps.length - 1], steps: g.steps, figure: g.figure,
+    hint: SKILL_HINTS[g.skill],
   };
 }
 
