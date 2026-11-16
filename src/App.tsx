@@ -2,6 +2,7 @@ import { Suspense, lazy, useEffect, useRef } from 'react';
 import { AnimatePresence, MotionConfig, motion } from 'framer-motion';
 import { ProgressProvider, useProgress } from './state/progress';
 import { useRoute } from './lib/router';
+import { flushReports } from './lib/report';
 import { Backdrop } from './components/shell/Shell';
 import { RewardLayer } from './components/reward/RewardLayer';
 import { MissionProvider } from './components/focus/Mission';
@@ -32,6 +33,14 @@ function Shell() {
   const { p, update, today } = useProgress();
   const route = useRoute();
   const lastActive = useRef(Date.now());
+
+  // Send any quiz reports that were waiting (for example from when the device was offline).
+  useEffect(() => {
+    void flushReports();
+    const on = () => { void flushReports(); };
+    window.addEventListener('online', on);
+    return () => window.removeEventListener('online', on);
+  }, []);
 
   useEffect(() => {
     const el = document.documentElement;

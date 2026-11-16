@@ -8,7 +8,8 @@ import { celebrate } from '../../lib/confetti';
 import { useMission } from '../focus/Mission';
 import { extraQuestionsFor, topicExtras } from './registry';
 import { ListenToggle } from '../audio/Listen';
-import type { Progress } from '../../state/model';
+import { masteryFor, type Progress } from '../../state/model';
+import { sendQuizReport } from '../../lib/report';
 
 /** Pick questions: unseen and often-missed ones first, but always shuffled and mixed. */
 export function buildRound(subject: SubjectContent, p: Progress, n: number, opts: { topicId?: string; weakFirst?: boolean } = {}): Question[] {
@@ -92,6 +93,15 @@ export function Quiz({ subject, mode, topicId, count, onDone }: { subject: Subje
             const pct = Math.round((right / questions.length) * 100);
             setDone(true);
             quizFinished(subject.id, pct);
+            // Tell a parent how it went (only if they have set up reports on the Parent page).
+            const after = masteryFor(subject, { ...p, quizScores: { ...p.quizScores, [subject.id]: [...(p.quizScores[subject.id] ?? []), pct] } });
+            sendQuizReport(p.name, {
+              subject: subject.name,
+              topic: subject.topics.find((t) => t.id === topic)?.title ?? 'All topics (mixed)',
+              quiz: lesson ? 'Lesson quiz' : boost ? 'Final Boost quiz' : 'Quiz round',
+              score: right, total: questions.length,
+              subjectProgress: `${after.overall}% mastered (flashcards ${after.cards}%, quiz average ${after.quiz}%)`,
+            });
             if (pct >= 80) celebrate(pct === 100);
             if (!lesson) finished(subject.id, ['quiz', 'boost-quiz']);
           }

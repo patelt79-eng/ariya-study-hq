@@ -4,6 +4,7 @@ import { masteryFor } from '../../state/model';
 import { SUBJECTS, SUBJECT_LIST } from '../../content';
 import { addDays, shortDate } from '../../lib/dates';
 import { Page, TopBar } from '../shell/Shell';
+import { reportUrl, saveReportUrl, sendTestReport } from '../../lib/report';
 
 export function Parent() {
   const { p, update } = useProgress();
@@ -120,14 +121,56 @@ function Summary() {
           )}
         </section>
 
-        <section className="card">
+        <section className="card" style={{ marginBottom: 16 }}>
           <h2>Red-rated topics</h2>
           <ul style={{ paddingLeft: 22 }}>
             {SUBJECT_LIST.flatMap((s) => s.topics.filter((t) => p.rag[t.id] === 'R').map((t) => <li key={t.id}>{s.name}: {t.title}</li>))}
           </ul>
         </section>
+
+        <ReportSettings student={p.name} />
       </Page>
     </>
+  );
+}
+
+/** Lets a parent turn on an email after each quiz, sent through their own Google Apps Script. */
+function ReportSettings({ student }: { student: string }) {
+  const [url, setUrl] = useState(reportUrl());
+  const [on, setOn] = useState(!!reportUrl());
+  const [msg, setMsg] = useState('');
+  const save = (value: string): boolean => {
+    const ok = saveReportUrl(value);
+    setOn(!!reportUrl());
+    setMsg(ok
+      ? (reportUrl() ? 'Saved. A result will be emailed after each quiz.' : 'Saved. Quiz emails are off.')
+      : 'That address does not look right. It should start with https://script.google.com/macros/s/ and end with /exec.');
+    return ok;
+  };
+  return (
+    <section className="card stack">
+      <h2>Quiz result emails {on && <span className="pill small">On</span>}</h2>
+      <p className="small muted" style={{ margin: 0 }}>
+        After each quiz, this device can email you the result: student, subject, topic, score, percentage and how much of the subject is mastered.
+        Paste the address of your own Google Apps Script below. It is saved on this device only.
+      </p>
+      <label htmlFor="report-url" className="small">Google Apps Script address (ends in /exec)</label>
+      <input id="report-url" value={url} onChange={(e) => setUrl(e.target.value)} inputMode="url" autoComplete="off" autoCapitalize="off" spellCheck={false}
+        placeholder="https://script.google.com/macros/s/…/exec" />
+      <div className="row">
+        <button className="btn" onClick={() => save(url)}>Save</button>
+        <button className="btn secondary" onClick={async () => {
+          if (!save(url) || !reportUrl()) return;
+          setMsg('Sending a test email…');
+          const sent = await sendTestReport(student);
+          setMsg(sent
+            ? 'Test sent. Check your inbox in a minute. If nothing arrives, check the address and that the script is deployed for "Anyone".'
+            : 'The test could not be sent. Check the internet connection and try again.');
+        }}>Send a test email</button>
+        <button className="btn ghost" onClick={() => { setUrl(''); save(''); }}>Turn off</button>
+      </div>
+      {msg && <p role="status" className="small" style={{ margin: 0 }}>{msg}</p>}
+    </section>
   );
 }
 
