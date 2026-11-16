@@ -150,7 +150,8 @@ label { font-weight: 700; }
 
 /* ---------- focus bar ---------- */
 .focusbar {
-  position: fixed; left: 50%; transform: translateX(-50%); bottom: max(12px, env(safe-area-inset-bottom));
+  /* Centred with auto margins, not a transform: the slide-in animation sets its own transform. */
+  position: fixed; left: 0; right: 0; margin-inline: auto; bottom: max(12px, env(safe-area-inset-bottom));
   z-index: 40; width: min(720px, calc(100% - 24px)); display: flex; align-items: center; gap: 10px;
   padding: 10px 12px; background: var(--surface-solid); border: 2px solid var(--accent); border-radius: calc(var(--radius) + 4px);
   box-shadow: var(--shadow);
